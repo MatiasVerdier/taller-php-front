@@ -19,7 +19,7 @@
 <script>
 import md5 from 'md5';
 
-const ENDPOINT = 'http://www.gravatar.com/avatar/';
+const ENDPOINT = 'https://www.gravatar.com/avatar/';
 
 export default {
   props: {
