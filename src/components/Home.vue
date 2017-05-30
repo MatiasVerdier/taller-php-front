@@ -15,11 +15,13 @@
     <!-- Page Content -->
     <div class="home-cards">
 
-      <el-row type="flex" justify="center" class="home-row">
-        <h3 class="heading">Guarda tus recursos</h3>
+      <el-row class="home-row">
+        <el-col>
+          <h3 class="heading">Guarda tus recursos</h3>
+        </el-col>
       </el-row>
 
-      <el-row :gutter="20" class="home-row">
+      <el-row class="home-row">
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
             <img src="http://placehold.it/500x300" class="image">
@@ -109,6 +111,10 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media (min-width: 1024px) {
+    justify-content: space-around;
+  }
 }
 .home-cards {
   margin: 50px 0;
