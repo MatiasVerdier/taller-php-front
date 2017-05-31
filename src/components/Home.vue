@@ -7,7 +7,7 @@
           <h1>Bienvenido a NombreApp!</h1>
           <h2>Manten tus recursos organizados y comparte</h2>
 
-          <el-button type="primary" class="call-to-action">Comienza ahora</el-button>
+          <el-button type="primary" class="call-to-action" @click="goToLogin">Comienza ahora</el-button>
         </el-col>
       </el-row>
     </header>
@@ -24,7 +24,7 @@
       <el-row class="home-row">
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="http://placehold.it/500x300" class="image">
+            <img src="https://placehold.it/500x300" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
@@ -32,7 +32,7 @@
 
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="http://placehold.it/500x300" class="image">
+            <img src="https://placehold.it/500x300" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
@@ -40,7 +40,7 @@
 
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="http://placehold.it/500x300" class="image">
+            <img src="https://placehold.it/500x300" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
@@ -52,6 +52,11 @@
 
 <script>
 export default {
+  methods: {
+    goToLogin() {
+      this.$router.push({ name: 'login' });
+    },
+  },
 };
 </script>
 

@@ -1,21 +1,21 @@
-# php-front
+# Taller PHP 2017 - Frontend
 
-> Frontend app para el taller de php
+> Frontend app para el taller de php. [Ver Backend](https://github.com/MatiasVerdier/taller-php)
 
-## Build Setup
+Probar aplicación en [taller-php.matiasverdier.com](https://taller-php.matiasverdier.com)
+
+## Instrucciones
 
 ``` bash
-# install dependencies
+# instalar dependencias
 npm install
 
-# serve with hot reload at localhost:8080
+# correr aplicación de forma local
 npm run dev
 
-# build for production with minification
+# compilar para producción
 npm run build
 
-# build for production and view the bundle analyzer report
+# compilar para producción y ver reporte
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
