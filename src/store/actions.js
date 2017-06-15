@@ -4,7 +4,7 @@ import api from '../api';
 export const login = ({ commit }, credentials) => {
   const { username, email, password, isLogin } = credentials;
   commit(types.LOGIN);
-  
+
   return isLogin ? api.login({ email, password }) : api.register({ username, email, password });
 };
 
@@ -21,7 +21,7 @@ export const getUser = ({ commit }) => {
 
 export const addResource = ({ commit }, payload) => {
   commit(types.ADD_RESOURCE);
-  
+
   return new Promise((resolve, reject) => {
     api.addResource(payload)
       .then((response) => {
@@ -35,9 +35,25 @@ export const addResource = ({ commit }, payload) => {
   });
 };
 
+export const getResources = ({ commit }) => {
+  commit(types.GET_RESOURCES);
+
+  return new Promise((resolve, reject) => {
+    api.getResources()
+      .then((response) => {
+        commit(types.GET_RESOURCES_SUCCESS, response.data);
+        resolve(response);
+      })
+      .catch((error) => {
+        commit(types.GET_RESOURCES_FAILURE, error.response);
+        reject(error);
+      });
+  });
+};
+
 export const getMyResources = ({ commit }, payload) => {
   commit(types.GET_MY_RESOURCES);
-  
+
   return new Promise((resolve, reject) => {
     api.getMyResources(payload)
       .then((response) => {
@@ -53,7 +69,7 @@ export const getMyResources = ({ commit }, payload) => {
 
 export const getResource = ({ commit }, payload) => {
   commit(types.GET_RESOURCE);
-  
+
   return api.getResource(payload)
     .then((response) => {
       commit(types.GET_RESOURCE_SUCCESS, response.data);

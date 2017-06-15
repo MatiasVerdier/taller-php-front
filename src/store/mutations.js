@@ -24,49 +24,63 @@ const mutations = {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'currentUser', user);
   },
-  
+
   [types.ADD_RESOURCE](state) {
     Vue.set(state, 'loading', true);
   },
-  
+
   [types.ADD_RESOURCE_SUCCESS](state, resource) {
     state.resources.push(resource);
     Vue.set(state, 'loading', false);
   },
-  
+
   [types.ADD_RESOURCE_FAILURE](state, { data }) {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'resourceError', data);
   },
-  
+
+  [types.GET_RESOURCES](state) {
+    Vue.set(state, 'loading', true);
+  },
+
+  [types.GET_RESOURCES_SUCCESS](state, resources) {
+    Vue.set(state, 'resources', resources);
+    Vue.set(state, 'loading', false);
+  },
+
+  [types.GET_RESOURCES_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
+
   [types.GET_MY_RESOURCES](state) {
     Vue.set(state, 'loading', true);
   },
-  
+
   [types.GET_MY_RESOURCES_SUCCESS](state, resources) {
     Vue.set(state, 'myResources', resources);
     Vue.set(state, 'loading', false);
   },
-  
+
   [types.GET_MY_RESOURCES_FAILURE](state, error) {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'error', error);
   },
-  
+
   [types.GET_RESOURCE](state) {
     Vue.set(state, 'loading', true);
   },
-  
+
   [types.GET_RESOURCE_SUCCESS](state, resource) {
     Vue.set(state, 'currentResource', resource);
     Vue.set(state, 'loading', false);
   },
-  
+
   [types.GET_RESOURCE_FAILURE](state, error) {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'error', error);
   },
-  
+
   [types.UNAUTHENTICATED](state) {
     Vue.set(state, 'isAuthenticated', false);
     Vue.set(state, 'currentUser', null);
