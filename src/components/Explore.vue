@@ -1,29 +1,30 @@
 <template lang="html">
   <div class="Explore">
-    <el-row type="flex" justify="center">
-      <el-col :xs="24" :md="20">
-        <el-row :gutter="20">
-          <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="n in 10" :key="n">
-            <el-card class="resource-card">
-              <p slot="header">
-                <i class="fa fa-clipboard"></i>
-                <span>Titulo</span>
-                <i style="float: right;" class="fa fa-gear"></i>
-              </p>
-                    
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, alias harum? Reprehenderit excepturi, quaerat perferendis modi fugit commodi atque debitis ut. Sit excepturi aspernatur libero distinctio nobis ducimus vitae quod.
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+    <el-row class="flex-container">
+      <el-col :xs="24" :sm="12" :lg="6" v-for="resource in resources" class="flex-item" :key="resource.id">
+        <resource-item :resource="resource"></resource-item>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import ResourceItem from './dashboard/resources/ResourceItem';
+
 export default {
+  mounted() {
+    this.getResources();
+  },
+  methods: {
+    ...mapActions(['getResources']),
+  },
+  computed: {
+    ...mapGetters(['resources']),
+  },
+  components: {
+    ResourceItem,
+  },
 };
 </script>
 
@@ -31,10 +32,5 @@ export default {
 .Explore {
   padding: 20px;
   height: calc(100vh - 60px);
-}
-
-.resource-card {
-  margin: 15px 0;
-  max-width: 350px;
 }
 </style>
