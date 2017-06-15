@@ -1,9 +1,9 @@
 <template lang="html">
   <el-row class="resource-create-buttons">
-    
+
     <el-col :span="8">
       <router-link to="/dashboard/create/link">
-        <el-card class="resource-type-card">
+        <el-card class="resource-type-card link">
           <h2>
             <i class="fa fa-globe"></i>
             Sitio Web
@@ -11,10 +11,10 @@
         </el-card>
       </router-link>
     </el-col>
-    
+
     <el-col :span="8">
       <router-link to="/dashboard/create/markdown">
-        <el-card class="resource-type-card">
+        <el-card class="resource-type-card markdown">
           <h2>
             <i class="fa fa-file-text"></i>
             Markdown
@@ -22,10 +22,10 @@
         </el-card>
       </router-link>
     </el-col>
-    
+
     <el-col :span="8">
       <router-link to="/dashboard/create/code">
-        <el-card class="resource-type-card">
+        <el-card class="resource-type-card code">
           <h2>
             <i class="fa fa-code"></i>
             Snippet
@@ -46,38 +46,48 @@ export default {
   padding: 20px;
   display: flex;
   justify-content: center;
-  
+
   div + div {
     margin-left: 20px;
   }
-  
+
   .resource-type-card {
     text-align: left;
     box-shadow: none;
     color: #727c88;
-    
+    transition: all .2s ease-in-out;
+
     &:hover {
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
-      color: #4f5c69;
+      color: white;
     }
-    
+
+    &.link:hover {
+      background-color: #2980b9;
+    }
+    &.markdown:hover {
+      background-color: #16a085;
+    }
+    &.code:hover {
+      background-color: #d35400;
+    }
+
     @media (min-width: 640px) {
       text-align: center;
     }
-    
+
     .el-card__body {
       padding: 10px;
-      
+
       @media (min-width: 640px) {
         padding: 10px 0;
       }
     }
-    
+
     i {
       font-size: 1.2em;
       vertical-align: middle;
       margin-right: 10px;
-      
+
       @media (min-width: 640px) {
         display: block;
         font-size: 2em;
