@@ -1,6 +1,10 @@
 <template lang="html">
   <div class="Explore">
-    <Resource-list :resources="resources"></Resource-list>
+    <el-row type="flex" justify="center">
+      <el-col :xs="22" :md="19">
+        <resource-list :resources="resources"></resource-list>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
