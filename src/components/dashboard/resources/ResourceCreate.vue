@@ -143,7 +143,7 @@ export default {
       }).catch(error => console.log('catch resource', error));
     },
     backToList() {
-      this.$router.push({ name: 'resource-list' });
+      this.$router.push({ name: 'my-resources' });
     },
   },
 };

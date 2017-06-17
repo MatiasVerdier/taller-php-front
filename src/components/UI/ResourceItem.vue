@@ -37,7 +37,7 @@ export default {
       return `type-${this.resource.type.toLowerCase()}`;
     },
     linkImage() {
-      return this.resource.link_image || 'http://placehold.it/350x150?text=No+Disponible';
+      return this.resource.link_image || 'https://placehold.it/350x150?text=No+Disponible';
     },
   },
   methods: {

@@ -11,10 +11,12 @@ import router from './router';
 import Gravatar from './components/Gravatar';
 import MarkdownEditor from './components/UI/MarkdownEditor';
 import CodeEditor from './components/UI/CodeEditor';
+import ResourceList from './components/UI/ResourceList';
 
 Vue.component('gravatar', Gravatar);
 Vue.component('markdown-editor', MarkdownEditor);
 Vue.component('code-editor', CodeEditor);
+Vue.component('resource-list', ResourceList);
 
 // Plugins
 Vue.use(ElementUI, { locale });

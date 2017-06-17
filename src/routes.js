@@ -2,7 +2,7 @@ import Home from './components/Home';
 import Explore from './components/Explore';
 import Authenticate from './components/Authenticate';
 import Dashboard from './components/dashboard/Dashboard';
-import ResourceList from './components/dashboard/resources/ResourceList';
+import MyResources from './components/dashboard/resources/MyResources';
 import ResourceCreate from './components/dashboard/resources/ResourceCreate';
 import ResourceShow from './components/dashboard/resources/ResourceShow';
 
@@ -20,7 +20,7 @@ const routes = [
     },
     children: [
       {
-        path: 'resources', name: 'resource-list', component: ResourceList,
+        path: 'resources', name: 'my-resources', component: MyResources,
       },
       {
         path: 'create/:type', component: ResourceCreate,
