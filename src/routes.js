@@ -5,6 +5,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import MyResources from './components/dashboard/resources/MyResources';
 import ResourceCreate from './components/dashboard/resources/ResourceCreate';
 import ResourceShow from './components/dashboard/resources/ResourceShow';
+import Profile from './components/Profile';
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { onlyGuest: true } },
@@ -27,6 +28,11 @@ const routes = [
       },
       {
         path: 'show/:id', name: 'show', component: ResourceShow, props: true,
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
       },
     ],
   },
