@@ -6,10 +6,6 @@
       <template v-if="resource.type === 'LINK'">
         <div class="link-image" v-bind:style="{ backgroundImage: `url(${linkImage})` }"></div>
 
-        <!-- <div class="link-href">
-          <a :href="resource.link" @click.stop="" target="_blank" rel="noopener">Visitar sitio</a>
-        </div> -->
-
         <h2 class="title">
           {{ resource.title }}
         </h2>
@@ -37,6 +33,12 @@
     </div>
 
     <div class="resource-actions">
+      <div class="link-href" v-if="resource.type === 'LINK'">
+        <a :href="resource.link" @click.stop="" target="_blank" rel="noopener">
+          Visitar sitio
+          <i class="fa fa-external-link" aria-hidden="true" style="font-size: 13px;"></i>
+        </a>
+      </div>
 
     </div>
 
@@ -135,7 +137,7 @@ $card-padding: 20px;
     cursor: pointer;
   }
 
-  &.type-markdown {
+  &.type-markdown, &.type-code {
     .resource-content {
       height: $content-height - 20px;
       margin-top: 20px;
@@ -168,6 +170,7 @@ $card-padding: 20px;
     bottom: $card-padding;
     height: 40px;
     width: calc(100% - 40px);
+    line-height: 40px;
   }
 
   .resource-owner {
