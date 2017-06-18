@@ -6,6 +6,7 @@ import locale from 'element-ui/lib/locale/lang/es';
 import App from './App';
 import store from './store';
 import router from './router';
+import './utils/filters';
 
 // Global components
 import Gravatar from './components/Gravatar';
