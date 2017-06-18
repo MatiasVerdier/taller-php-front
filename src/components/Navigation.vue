@@ -5,22 +5,22 @@
         <el-menu-item index="home">
           Home
         </el-menu-item>
-        
+
         <el-menu-item index="explore">
           Explorar
         </el-menu-item>
       </div>
-      
+
       <div class="right-menu">
         <template v-if="isAuthenticated">
           <div v-if="currentUser" class="el-menu-item user-menu" @click="onMenuLogout">
             <gravatar :email="currentUser.email"></gravatar>
             <span class="user-name">{{ currentUser.username }}</span>
-            
+
             <i class="fa fa-sign-out"></i>
           </div>
         </template>
-        
+
         <el-menu-item v-else index="login">
           Login
         </el-menu-item>
@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .el-menu-item:hover {
   border-bottom: 5px solid #20a0ff;
 }
@@ -75,6 +75,11 @@ export default {
 .user-menu {
   padding: 0;
   width: 200px;
+
+  .gravatar {
+    margin-right: 20px;
+    margin-left: 10px;
+  }
 }
 .user-name {
   display: inline-block;

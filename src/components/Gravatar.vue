@@ -7,8 +7,6 @@
 <style>
   .gravatar {
     display: inline-block;
-    margin-right: 20px;
-    margin-left: 10px;
   }
   .gravatar img {
     border-radius: 50%;
