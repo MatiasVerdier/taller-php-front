@@ -82,3 +82,18 @@ export const getResource = ({ commit }, payload) => {
 export const unauthenticated = ({ commit }) => {
   commit(types.UNAUTHENTICATED);
 };
+
+export const getLinkMetadata = async ({ commit }, payload) => {
+  commit(types.GET_LINK_METADATA);
+
+  try {
+    let response = await api.getLinkMetadata(payload.url);
+    const metadata = response.data;
+
+    commit(types.GET_LINK_METADATA_SUCCESS, metadata);
+
+    response = await api.updateResourceMetadata(payload.resourceId, metadata);
+  } catch (error) {
+    commit(types.GET_LINK_METADATA_FAILURE, error);
+  }
+};

@@ -134,7 +134,11 @@ export default {
       if (type === 'CODE') data.code = this.resource.code;
 
       this.$store.dispatch('addResource', data)
-      .then(() => {
+      .then((response) => {
+        if (type === 'LINK') {
+          this.$store.dispatch('getLinkMetadata', { url: data.link, resourceId: response.data.id });
+        }
+
         this.$notify.success({
           title: 'Todo salio bien!',
           message: 'El recurso se ha creado con exito',

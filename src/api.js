@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 const API_ROOT = process.env.API_ROOT;
+const METADATA_API = process.env.METADATA_API;
+
+const axiosMeta = axios.create({
+  baseURL: METADATA_API,
+});
 
 axios.defaults.baseURL = API_ROOT;
 axios.defaults.headers.common = {
@@ -24,6 +29,14 @@ const getResources = () => axios.get('/resources');
 const addResource = data => axios.post('/resources', data);
 const getMyResources = userid => axios.get(`/user/${userid}/resources`);
 const getResource = resourceid => axios.get(`/resources/${resourceid}`);
+const updateResource = data => axios.put(`/resources/${data.id}`, data);
+
+// Get link metadata
+const getLinkMetadata = linkUrl => axiosMeta.post('/', {
+  url: linkUrl,
+});
+
+const updateResourceMetadata = (id, data) => axios.put(`/resources/metadata/${id}`, data);
 
 export default {
   login,
@@ -34,4 +47,7 @@ export default {
   getResources,
   getMyResources,
   getResource,
+  updateResource,
+  getLinkMetadata,
+  updateResourceMetadata,
 };

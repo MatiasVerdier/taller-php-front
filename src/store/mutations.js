@@ -85,6 +85,20 @@ const mutations = {
     Vue.set(state, 'isAuthenticated', false);
     Vue.set(state, 'currentUser', null);
   },
+
+  [types.GET_LINK_METADATA](state) {
+    Vue.set(state, 'loading', true);
+  },
+
+  [types.GET_LINK_METADATA_SUCCESS](state, data) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'metadata', data);
+  },
+
+  [types.GET_LINK_METADATA_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
 };
 
 export default mutations;
