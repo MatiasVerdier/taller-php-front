@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="resource-details">
     <div class="content" v-if="!isLoading && currentResource">
-      <router-link to="/dashboard">Volver</router-link>
+      <a href="#" @click.prevent="goBack">Volver</a>
 
       <div class="actions-container">
         <h1 class="title">{{ currentResource.title }}</h1>
@@ -53,6 +53,9 @@ export default {
   },
   methods: {
     ...mapActions(['getResource']),
+    goBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
