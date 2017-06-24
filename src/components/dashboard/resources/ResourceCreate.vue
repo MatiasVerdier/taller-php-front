@@ -135,19 +135,24 @@ export default {
 
       this.$store.dispatch('addResource', data)
       .then((response) => {
+        const id = response.data.id;
+
         if (type === 'LINK') {
-          this.$store.dispatch('getLinkMetadata', { url: data.link, resourceId: response.data.id });
+          this.$store.dispatch('getLinkMetadata', { url: data.link, resourceId: id });
         }
 
         this.$notify.success({
           title: 'Todo salio bien!',
           message: 'El recurso se ha creado con exito',
         });
-        this.backToList();
+        this.showResource(id);
       }).catch(error => console.log('catch resource', error));
     },
     backToList() {
       this.$router.push({ name: 'my-resources' });
+    },
+    showResource(id) {
+      this.$router.push({ name: 'show', params: { id } });
     },
   },
 };

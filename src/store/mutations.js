@@ -99,6 +99,10 @@ const mutations = {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'error', error);
   },
+
+  [types.UPDATE_RESOURCE_METADATA](state, payload) {
+    Vue.set(state, 'currentResource', payload);
+  },
 };
 
 export default mutations;

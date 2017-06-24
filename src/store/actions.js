@@ -93,6 +93,8 @@ export const getLinkMetadata = async ({ commit }, payload) => {
     commit(types.GET_LINK_METADATA_SUCCESS, metadata);
 
     response = await api.updateResourceMetadata(payload.resourceId, metadata);
+
+    commit(types.UPDATE_RESOURCE_METADATA, response.data);
   } catch (error) {
     commit(types.GET_LINK_METADATA_FAILURE, error);
   }
