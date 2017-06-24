@@ -4,7 +4,7 @@
 
     <div class="resource-content">
       <template v-if="resource.type === 'LINK'">
-        <div class="link-image" v-bind:style="{ backgroundImage: `url(${linkImage})` }"></div>
+        <resource-image :resource="resource" height="150px"></resource-image>
 
         <h2 class="title">
           {{ resource.title }}
@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import GeoPattern from 'geopattern';
-
 export default {
   props: {
     resource: {
@@ -58,9 +56,6 @@ export default {
   computed: {
     cardTypeClass() {
       return `type-${this.resource.type.toLowerCase()}`;
-    },
-    linkImage() {
-      return this.resource.link_image || GeoPattern.generate(this.resource.title).toDataUri();
     },
   },
   methods: {
