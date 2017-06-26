@@ -27,7 +27,7 @@ const getUser = () => axios.get('/me');
 // Resources
 const getResources = () => axios.get('/resources');
 const addResource = data => axios.post('/resources', data);
-const getMyResources = userid => axios.get(`/user/${userid}/resources`);
+const getMyResources = userid => axios.get(`/users/${userid}/resources`);
 const getResource = resourceid => axios.get(`/resources/${resourceid}`);
 const updateResource = data => axios.put(`/resources/${data.id}`, data);
 
