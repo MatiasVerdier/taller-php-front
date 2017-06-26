@@ -1,8 +1,8 @@
 <template lang="html">
-  <el-card class="card-resource" v-bind:class="cardTypeClass" @click.native="showResource">
+  <el-card class="card-resource" v-bind:class="cardTypeClass">
     <div class="flag">{{ resource.type | capitalize }}</div>
 
-    <div class="resource-content">
+    <div class="resource-content" @click="showResource">
       <template v-if="resource.type === 'LINK'">
         <resource-image :resource="resource" height="150px"></resource-image>
 
@@ -29,17 +29,19 @@
     </div>
 
     <div class="resource-owner">
-      <gravatar :email="resource.owner.email" :size="36"></gravatar>
+      <user-popover :user="resource.owner"></user-popover>
     </div>
 
     <div class="resource-actions">
-      <div class="link-href" v-if="resource.type === 'LINK'">
-        <a :href="resource.link" @click.stop="" target="_blank" rel="noopener">
-          Visitar sitio
-          <i class="fa fa-external-link" aria-hidden="true" style="font-size: 13px;"></i>
-        </a>
-      </div>
+      <a class="link-href" v-if="resource.type === 'LINK'" :href="resource.link" @click.stop="" target="_blank" rel="noopener">
+        Visitar sitio
+        <i class="fa fa-external-link" aria-hidden="true" style="font-size: 13px;"></i>
+      </a>
 
+      <div class="action-buttons">
+        <i class="fa fa-trash"></i>
+        <i class="fa fa-heart-o"></i>
+      </div>
     </div>
 
   </el-card>
@@ -127,11 +129,6 @@ $card-padding: 20px;
     }
   }
 
-  &:hover {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
-    cursor: pointer;
-  }
-
   &.type-markdown, &.type-code {
     .resource-content {
       height: $content-height - 20px;
@@ -146,6 +143,13 @@ $card-padding: 20px;
   .resource-content {
     height: $content-height;
     overflow: hidden;
+
+    &:hover {
+      cursor: pointer;
+      .title {
+        color: #2980b9;
+      }
+    }
 
     .link-image {
       min-height: 150px;
@@ -166,6 +170,18 @@ $card-padding: 20px;
     height: 40px;
     width: calc(100% - 40px);
     line-height: 40px;
+
+    .action-buttons {
+      display: inline-block;
+      float: right;
+
+      i {
+        margin-left: 10px;
+        &:hover {
+
+        }
+      }
+    }
   }
 
   .resource-owner {
