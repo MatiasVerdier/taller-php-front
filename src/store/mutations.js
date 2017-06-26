@@ -103,6 +103,35 @@ const mutations = {
   [types.UPDATE_RESOURCE_METADATA](state, payload) {
     Vue.set(state, 'currentResource', payload);
   },
+
+  [types.GET_USER_PROFILE](state) {
+    Vue.set(state, 'loading', true);
+  },
+
+  [types.GET_USER_PROFILE_SUCCESS](state, payload) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'currentUserProfile', payload);
+  },
+
+  [types.GET_USER_PROFILE_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
+
+  [types.GET_USER_PUBLIC_INFO](state) {
+    Vue.set(state, 'lookingUserInfo', {});
+    Vue.set(state, 'loading', true);
+  },
+
+  [types.GET_USER_PUBLIC_INFO_SUCCESS](state, payload) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'lookingUserInfo', payload);
+  },
+
+  [types.GET_USER_PUBLIC_INFO_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
 };
 
 export default mutations;

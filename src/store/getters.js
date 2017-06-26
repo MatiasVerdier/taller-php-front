@@ -11,3 +11,5 @@ export const currentResource = state => state.currentResource;
 export const isLoading = state => state.loading;
 
 export const loginError = state => state.loginError;
+
+export const lookingUser = state => state.lookingUserInfo;

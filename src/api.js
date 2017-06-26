@@ -36,6 +36,12 @@ const getLinkMetadata = linkUrl => axiosMeta.post('/', {
   url: linkUrl,
 });
 
+// Get user profile
+const getUserProfile = () => axios.get('/profile');
+
+// Get defferent user info
+const getPublicUserInfo = userId => axios.get(`/users/${userId}/info`);
+
 const updateResourceMetadata = (id, data) => axios.put(`/resources/metadata/${id}`, data);
 
 export default {
@@ -50,4 +56,6 @@ export default {
   updateResource,
   getLinkMetadata,
   updateResourceMetadata,
+  getUserProfile,
+  getPublicUserInfo,
 };

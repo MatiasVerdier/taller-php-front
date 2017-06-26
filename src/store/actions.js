@@ -99,3 +99,25 @@ export const getLinkMetadata = async ({ commit }, payload) => {
     commit(types.GET_LINK_METADATA_FAILURE, error);
   }
 };
+
+export const getUserProfile = async ({ commit }) => {
+  commit(types.GET_USER_PROFILE);
+
+  try {
+    const response = await api.getUserProfile();
+    commit(types.GET_USER_PROFILE_SUCCESS, response.data);
+  } catch (error) {
+    commit(types.GET_USER_PROFILE_FAILURE, error);
+  }
+};
+
+export const getPublicUserInfo = async ({ commit }, payload) => {
+  commit(types.GET_USER_PUBLIC_INFO);
+
+  try {
+    const response = await api.getPublicUserInfo(payload);
+    commit(types.GET_USER_PUBLIC_INFO_SUCCESS, response.data);
+  } catch (error) {
+    commit(types.GET_USER_PUBLIC_INFO_FAILURE, error);
+  }
+};
