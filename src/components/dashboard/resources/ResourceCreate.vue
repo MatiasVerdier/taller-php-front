@@ -60,7 +60,7 @@
               </el-form-item>
             </el-form>
 
-            <code-editor></code-editor>
+            <code-editor :code="resource.code"></code-editor>
 
             <el-button @click="backToList">
               Cancelar
