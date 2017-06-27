@@ -38,9 +38,14 @@
         <i class="fa fa-external-link" aria-hidden="true" style="font-size: 13px;"></i>
       </a>
 
-      <div class="action-buttons">
-        <i class="fa fa-trash"></i>
-        <i class="fa fa-heart-o"></i>
+      <div class="action-buttons" v-if="currentUser">
+        <span class="action-delete" v-if="currentUser.id === resource.owner.id">
+          <i class="fa fa-trash" ></i>
+        </span>
+
+        <span class="action-like">
+          <i class="fa fa-heart-o"></i>
+        </span>
       </div>
     </div>
 
@@ -48,6 +53,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     resource: {
@@ -56,6 +63,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['currentUser']),
     cardTypeClass() {
       return `type-${this.resource.type.toLowerCase()}`;
     },
@@ -77,6 +85,8 @@ export default {
 $content-height: 200px;
 $card-height: $content-height + 50px;
 $card-padding: 20px;
+
+$hover-color: #2980b9;
 
 .card-resource {
   flex: 1 0 auto;
@@ -147,7 +157,7 @@ $card-padding: 20px;
     &:hover {
       cursor: pointer;
       .title {
-        color: #2980b9;
+        color: $hover-color;
       }
     }
 
@@ -175,11 +185,20 @@ $card-padding: 20px;
       display: inline-block;
       float: right;
 
+      &:hover {
+        cursor: pointer;
+      }
+
       i {
         margin-left: 10px;
-        &:hover {
+      }
 
-        }
+      .action-like:hover {
+        color: #ff4949;
+      }
+
+      .action-delete:hover {
+        color: $hover-color;
       }
     }
   }
@@ -188,6 +207,7 @@ $card-padding: 20px;
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
 
     .gravatar {
       margin: 0;
