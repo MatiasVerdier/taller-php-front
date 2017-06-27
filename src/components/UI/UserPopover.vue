@@ -1,5 +1,5 @@
 <template>
-  <el-popover placement="top" trigger="hover" @show="getUserInfo">
+  <el-popover placement="top" trigger="click" @show="getUserInfo">
     <gravatar :email="user.email" :size="36" slot="reference"></gravatar>
 
     <el-card>
