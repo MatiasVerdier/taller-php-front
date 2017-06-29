@@ -24,7 +24,7 @@
           {{ resource.title }}
         </h2>
 
-        <code-editor :code="resource.code" height="180px" :controls="false" :language="resource.code_type"></code-editor>
+        <code-editor :code="resource.code" height="140px" :controls="false" :language="resource.code_type"></code-editor>
       </template>
     </div>
 
