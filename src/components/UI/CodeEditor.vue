@@ -225,6 +225,7 @@ export default {
   watch: {
     selectedLanguage: function (newLanguage) { // eslint-disable-line
       this.editor.getSession().setMode(`ace/mode/${newLanguage}`);
+      this.$emit('languageChange', newLanguage);
     },
     selectedTheme: function (newTheme) {// eslint-disable-line
       this.editor.setTheme(`ace/theme/${newTheme}`);
@@ -237,6 +238,8 @@ export default {
     this.editor.setValue(this.codeValue, 1);
     this.editor.setReadOnly(!this.isEditing);
     this.editor.$blockScrolling = Infinity;
+
+    this.editor.renderer.setShowGutter(this.controls);
 
     this.editor.getSession().on('change', () => {
       this.codeValue = this.editor.getValue();
