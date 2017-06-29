@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="CodeEditor">
 
-    <div class="editor-option">
+    <div class="editor-option" v-show="controls">
       <span>Lenguaje:</span>
 
-      <el-select v-model="selectedLanguage" placeholder="Lenguaje">
+      <el-select v-model="selectedLanguage" placeholder="Lenguaje" :disabled="!isEditing">
         <el-option
           v-for="item in availableLanguages"
           :key="item"
@@ -14,7 +14,7 @@
       </el-select>
     </div>
 
-    <div class="editor-option right">
+    <div class="editor-option right" v-show="controls">
       <span>Tema:</span>
 
       <el-select v-model="selectedTheme" placeholder="Tema">
@@ -27,8 +27,8 @@
       </el-select>
     </div>
 
-    <div class="editor-wrapper">
-      <div class="editor-body" ref="editorBody"></div>
+    <div class="editor-wrapper" v-bind:style="{padding: `${controls ? 10 : 0}px 0`}">
+      <div class="editor-body" v-bind:style="{ width: `${width}`, height: `${height}` }" ref="editorBody"></div>
     </div>
   </div>
 </template>
@@ -39,6 +39,10 @@ export default {
     code: { type: String, default: '// tu código \n' },
     language: { type: String, default: 'javascript' },
     theme: { type: String, default: 'monokai' },
+    isEditing: { type: Boolean, default: false },
+    width: { type: [Number, String], default: '100%' },
+    height: { type: [Number, String], default: '50vh' },
+    controls: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -230,9 +234,14 @@ export default {
     this.editor = window.ace.edit(this.$refs.editorBody);
     this.editor.setTheme(`ace/theme/${this.selectedTheme}`);
     this.editor.getSession().setMode(`ace/mode/${this.selectedLanguage}`);
-    this.editor.setValue(this.codeValue);
-  },
-  methods: {
+    this.editor.setValue(this.codeValue, 1);
+    this.editor.setReadOnly(!this.isEditing);
+    this.editor.$blockScrolling = Infinity;
+
+    this.editor.getSession().on('change', () => {
+      this.codeValue = this.editor.getValue();
+      this.$emit('input', this.codeValue);
+    });
   },
   beforeDestroy() {
     this.editor.destroy();
@@ -243,11 +252,7 @@ export default {
 <style lang="scss">
 .CodeEditor {
   .editor-wrapper {
-    padding: 10px 0;
     position: relative;
-  }
-  .editor-body {
-    min-height: 50vh;
   }
   .editor-option {
     display: inline-block;
