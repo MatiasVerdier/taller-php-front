@@ -27,7 +27,7 @@
         </template>
 
         <template v-else="currentResource.type === 'CODE'">
-          <code-editor :code="currentResource.code"></code-editor>
+          <code-editor :code="currentResource.code" :language="currentResource.code_type"></code-editor>
         </template>
       </div>
     </div>

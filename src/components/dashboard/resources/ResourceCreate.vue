@@ -21,7 +21,14 @@
 
               <markdown-editor :value="resource.markdown" @input="onMarkdownInput" :isEditing="true" v-if="type === 'MARKDOWN'"></markdown-editor>
 
-              <code-editor :code="resource.code" @input="onCodeInput" :isEditing="true" v-if="type === 'CODE'"></code-editor>
+              <code-editor
+                v-if="type === 'CODE'"
+                :code="resource.code"
+                :language="resource.code_type"
+                @input="onCodeInput"
+                @languageChange="onLanguageChange"
+                :isEditing="true">
+              </code-editor>
             </el-form>
 
             <el-button @click="backToList">
@@ -60,6 +67,7 @@ export default {
         link: '',
         markdown: '',
         code: '',
+        code_type: 'javascript',
       },
     };
   },
@@ -87,6 +95,9 @@ export default {
     onCodeInput(value) {
       this.resource.code = value;
     },
+    onLanguageChange(value) {
+      this.resource.code_type = value;
+    },
     addResource() {
       const { type } = this;
       const data = {
@@ -96,7 +107,10 @@ export default {
 
       if (type === 'LINK') data.link = this.resource.link;
       if (type === 'MARKDOWN') data.markdown = this.resource.markdown;
-      if (type === 'CODE') data.code = this.resource.code;
+      if (type === 'CODE') {
+        data.code = this.resource.code;
+        data.code_type = this.resource.code_type;
+      }
 
       this.$store.dispatch('addResource', data)
       .then((response) => {
@@ -106,10 +120,11 @@ export default {
           this.$store.dispatch('getLinkMetadata', { url: data.link, resourceId: id });
         }
 
-        this.$notify.success({
-          title: 'Todo salio bien!',
+        this.$message({
           message: 'El recurso se ha creado con exito',
+          type: 'success',
         });
+
         this.showResource(id);
       }).catch(error => console.log('catch resource', error));
     },
