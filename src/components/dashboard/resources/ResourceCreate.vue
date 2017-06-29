@@ -8,59 +8,21 @@
 
     <el-row type="flex" justify="center">
       <el-col :span="18">
-
-        <div class="content" v-if="type === 'LINK'">
+        <div class="content">
           <el-card>
             <el-form :model="resource" label-position="top">
               <el-form-item label="Titulo">
                 <el-input v-model="resource.title" placeholder="De que se trata"></el-input>
               </el-form-item>
 
-              <el-form-item label="Url">
+              <el-form-item label="Url" v-if="type === 'LINK'">
                 <el-input v-model="resource.link" placeholder="Inserta tu link"></el-input>
               </el-form-item>
+
+              <markdown-editor :value="resource.markdown" @input="onMarkdownInput" :isEditing="true" v-if="type === 'MARKDOWN'"></markdown-editor>
+
+              <code-editor :code="resource.code" @input="onCodeInput" :isEditing="true" v-if="type === 'CODE'"></code-editor>
             </el-form>
-
-            <el-button @click="backToList">
-              Cancelar
-            </el-button>
-
-            <el-button type="primary" @click="addResource">
-              Guardar
-            </el-button>
-          </el-card>
-        </div>
-
-
-        <div class="content" v-if="type === 'MARKDOWN'">
-          <el-card>
-            <el-form :model="resource" label-position="top">
-              <el-form-item label="Titulo">
-                <el-input v-model="resource.title" placeholder="De que se trata"></el-input>
-              </el-form-item>
-            </el-form>
-
-            <markdown-editor :value="resource.markdown" @input="onInput" :isEditing="true"></markdown-editor>
-
-            <el-button @click="backToList">
-              Cancelar
-            </el-button>
-
-            <el-button type="primary" @click="addResource">
-              Guardar
-            </el-button>
-          </el-card>
-        </div>
-
-        <div class="content" v-if="type === 'CODE'">
-          <el-card>
-            <el-form :model="resource" label-position="top">
-              <el-form-item label="Titulo">
-                <el-input v-model="resource.title" placeholder="De que se trata"></el-input>
-              </el-form-item>
-            </el-form>
-
-            <code-editor :code="resource.code"></code-editor>
 
             <el-button @click="backToList">
               Cancelar
@@ -119,8 +81,11 @@ export default {
     },
   },
   methods: {
-    onInput(value) {
+    onMarkdownInput(value) {
       this.resource.markdown = value;
+    },
+    onCodeInput(value) {
+      this.resource.code = value;
     },
     addResource() {
       const { type } = this;
