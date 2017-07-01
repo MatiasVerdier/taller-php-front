@@ -1,18 +1,18 @@
 <template lang="html">
   <el-card class="card-resource" v-bind:class="cardTypeClass">
-    <div class="flag">{{ resource.type | capitalize }}</div>
+    <div class="flag">{{ flagText }}</div>
 
-    <div class="resource-content" @click="showResource">
+    <div class="resource-content">
       <template v-if="resource.type === 'LINK'">
         <resource-image :resource="resource" height="150px"></resource-image>
 
-        <h2 class="title">
+        <h2 class="title" @click="showResource">
           {{ resource.title }}
         </h2>
       </template>
 
       <template v-else-if="resource.type === 'MARKDOWN'">
-        <h2 class="title">
+        <h2 class="title" @click="showResource">
           {{ resource.title }}
         </h2>
 
@@ -20,7 +20,7 @@
       </template>
 
       <template v-else="resource.type === 'CODE'">
-        <h2 class="title">
+        <h2 class="title" @click="showResource">
           {{ resource.title }}
         </h2>
 
@@ -66,6 +66,11 @@ export default {
     ...mapGetters(['currentUser']),
     cardTypeClass() {
       return `type-${this.resource.type.toLowerCase()}`;
+    },
+    flagText() {
+      let newValue = this.resource.type.toString().toLowerCase();
+      newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+      return this.resource.type === 'CODE' ? 'Snippet' : newValue;
     },
   },
   methods: {
