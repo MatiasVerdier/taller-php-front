@@ -2,7 +2,8 @@ export const isAuthenticated = state => state.isAuthenticated;
 
 export const currentUser = state => state.currentUser;
 export const currentUserFollowing = (state) => { // eslint-disable-line
-  return state.currentUser.following ? state.currentUser.following.map(item => item.id) : [];
+  const user = state.currentUser;
+  return user && user.following ? user.following.map(item => item.id) : [];
 };
 
 export const resources = state => state.resources;
