@@ -9,7 +9,7 @@
         <h3>{{ user.username }}</h3>
 
         <template v-if="lookingUser">
-          <el-button :plain="true" v-if="currentUser.id !== user.id" :type="followButtonType">
+          <el-button :plain="true" v-if="currentUser.id !== user.id" :type="followButtonType" @click="changeFollowing">
             {{ followButtonText }}
           </el-button>
 
@@ -53,9 +53,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getPublicUserInfo']),
+    ...mapActions(['getPublicUserInfo', 'followUser', 'unfollowUser']),
     getUserInfo() {
       this.getPublicUserInfo(this.user.id);
+    },
+    changeFollowing() {
+      if (this.isFollowing) {
+        this.unfollowUser({ user_id: this.user.id });
+      } else {
+        this.followUser({ user_id: this.user.id });
+      }
     },
   },
 };

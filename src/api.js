@@ -39,8 +39,14 @@ const getLinkMetadata = linkUrl => axiosMeta.post('/', {
 // Get user profile
 const getUserProfile = () => axios.get('/profile');
 
-// Get defferent user info
+// Get different user info
 const getPublicUserInfo = userId => axios.get(`/users/${userId}/info`);
+
+// Follow user
+const followUser = data => axios.post('/following/add', data);
+
+// Unfollow user
+const unfollowUser = data => axios.post('/following/remove', data);
 
 const updateResourceMetadata = (id, data) => axios.put(`/resources/metadata/${id}`, data);
 
@@ -58,4 +64,6 @@ export default {
   updateResourceMetadata,
   getUserProfile,
   getPublicUserInfo,
+  followUser,
+  unfollowUser,
 };

@@ -121,3 +121,31 @@ export const getPublicUserInfo = async ({ commit }, payload) => {
     commit(types.GET_USER_PUBLIC_INFO_FAILURE, error);
   }
 };
+
+export const followUser = async ({ commit }, payload) => {
+  commit(types.FOLLOWING_CHANGE);
+
+  try {
+    const response = await api.followUser(payload);
+    commit(types.FOLLOWING_CHANGE_SUCCESS, response.data);
+    const userData = JSON.parse(localStorage.getItem('currentUser'));
+    userData.following = response.data;
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  } catch (error) {
+    commit(types.FOLLOWING_CHANGE_FAILURE, error);
+  }
+};
+
+export const unfollowUser = async ({ commit }, payload) => {
+  commit(types.FOLLOWING_CHANGE);
+
+  try {
+    const response = await api.unfollowUser(payload);
+    commit(types.FOLLOWING_CHANGE_SUCCESS, response.data);
+    const userData = JSON.parse(localStorage.getItem('currentUser'));
+    userData.following = response.data;
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  } catch (error) {
+    commit(types.FOLLOWING_CHANGE_FAILURE, error);
+  }
+};

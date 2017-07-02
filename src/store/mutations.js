@@ -132,6 +132,20 @@ const mutations = {
     Vue.set(state, 'loading', false);
     Vue.set(state, 'error', error);
   },
+
+  [types.FOLLOWING_CHANGE](state) {
+    Vue.set(state, 'loading', true);
+  },
+
+  [types.FOLLOWING_CHANGE_SUCCESS](state, payload) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state.currentUser, 'following', payload);
+  },
+
+  [types.FOLLOWING_CHANGE_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
 };
 
 export default mutations;
