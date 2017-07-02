@@ -4,6 +4,7 @@ import * as types from './mutation-types';
 const mutations = {
   [types.LOGIN](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'loginError', null);
   },
   [types.LOGIN_SUCCESS](state) {
     Vue.set(state, 'loading', false);
@@ -27,6 +28,7 @@ const mutations = {
 
   [types.ADD_RESOURCE](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'resourceError', null);
   },
 
   [types.ADD_RESOURCE_SUCCESS](state, resource) {
@@ -41,6 +43,7 @@ const mutations = {
 
   [types.GET_RESOURCES](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
   },
 
   [types.GET_RESOURCES_SUCCESS](state, resources) {
@@ -55,6 +58,7 @@ const mutations = {
 
   [types.GET_MY_RESOURCES](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
   },
 
   [types.GET_MY_RESOURCES_SUCCESS](state, resources) {
@@ -69,15 +73,18 @@ const mutations = {
 
   [types.GET_RESOURCE](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
+    Vue.set(state, 'currentResource', null);
   },
 
   [types.GET_RESOURCE_SUCCESS](state, resource) {
-    Vue.set(state, 'currentResource', resource);
     Vue.set(state, 'loading', false);
+    Vue.set(state, 'currentResource', resource);
   },
 
   [types.GET_RESOURCE_FAILURE](state, error) {
     Vue.set(state, 'loading', false);
+    Vue.set(state, 'currentResource', null);
     Vue.set(state, 'error', error);
   },
 
@@ -88,6 +95,7 @@ const mutations = {
 
   [types.GET_LINK_METADATA](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
   },
 
   [types.GET_LINK_METADATA_SUCCESS](state, data) {
@@ -106,6 +114,7 @@ const mutations = {
 
   [types.GET_USER_PROFILE](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
   },
 
   [types.GET_USER_PROFILE_SUCCESS](state, payload) {
@@ -120,6 +129,7 @@ const mutations = {
 
   [types.GET_USER_PUBLIC_INFO](state) {
     Vue.set(state, 'lookingUserInfo', {});
+    Vue.set(state, 'error', null);
     Vue.set(state, 'loading', true);
   },
 
@@ -138,6 +148,7 @@ const mutations = {
 
   [types.FOLLOWING_CHANGE](state) {
     Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
   },
 
   [types.FOLLOWING_CHANGE_SUCCESS](state, payload) {
