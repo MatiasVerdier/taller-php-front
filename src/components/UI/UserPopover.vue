@@ -13,11 +13,28 @@
             {{ followButtonText }}
           </el-button>
 
-          <div class="extra-info">
-            <span>Seguidores {{ followers }}</span>
-            <span>Siguiendo {{ following }}</span>
-            <span>Recursos {{ lookingUser.resources }}</span>
-          </div>
+          <el-row class="extra-info">
+            <el-col :span="8" class="info-block">
+              <div class="info-label">
+                <span>Seguidores</span>
+              </div>
+              <div class="info-value">{{ followers }}</div>
+            </el-col>
+
+            <el-col :span="8" class="info-block">
+              <div class="info-label">
+                <span>Siguiendo</span>
+              </div>
+              <div class="info-value">{{ following }}</div>
+            </el-col>
+
+            <el-col :span="8" class="info-block">
+              <div class="info-label">
+                <span>Recursos Públicos</span>
+              </div>
+              <div class="info-value">{{ lookingUser.resources }}</div>
+            </el-col>
+          </el-row>
         </template>
       </div>
     </el-card>
@@ -80,6 +97,25 @@ export default {
 
   .extra-info {
     padding: 10px 0;
+  }
+
+  .info-block {
+    .info-label {
+      height: 30px;
+      line-height: 30px;
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+      }
+    }
+
+    .info-value {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
   }
 
   h3 {
