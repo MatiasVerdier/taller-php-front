@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     currentUser: JSON.parse(localStorage.getItem('currentUser')),
     resources: [],
     myResources: [],
-    lookingUser: {},
+    lookingUserInfo: {},
   },
   actions,
   getters,
