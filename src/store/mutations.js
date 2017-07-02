@@ -124,8 +124,11 @@ const mutations = {
   },
 
   [types.GET_USER_PUBLIC_INFO_SUCCESS](state, payload) {
+    const userInfo = payload;
+    userInfo.followersCount = userInfo.followers ? userInfo.followers.length : 0;
+    userInfo.followingCount = userInfo.following ? userInfo.following.length : 0;
     Vue.set(state, 'loading', false);
-    Vue.set(state, 'lookingUserInfo', payload);
+    Vue.set(state, 'lookingUserInfo', userInfo);
   },
 
   [types.GET_USER_PUBLIC_INFO_FAILURE](state, error) {
@@ -138,8 +141,10 @@ const mutations = {
   },
 
   [types.FOLLOWING_CHANGE_SUCCESS](state, payload) {
+    const followersCount = state.lookingUserInfo.followersCount;
     Vue.set(state, 'loading', false);
-    Vue.set(state.currentUser, 'following', payload);
+    Vue.set(state.currentUser, 'following', payload.data);
+    Vue.set(state.lookingUserInfo, 'followersCount', payload.action === 'follow' ? followersCount + 1 : followersCount - 1);
   },
 
   [types.FOLLOWING_CHANGE_FAILURE](state, error) {

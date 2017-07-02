@@ -46,10 +46,10 @@ export default {
       return this.isFollowing ? 'danger' : 'success';
     },
     followers() {
-      return this.lookingUser.followers ? this.lookingUser.followers.length : 0;
+      return this.lookingUser.followersCount;
     },
     following() {
-      return this.lookingUser.following ? this.lookingUser.following.length : 0;
+      return this.lookingUser.followingCount;
     },
   },
   methods: {

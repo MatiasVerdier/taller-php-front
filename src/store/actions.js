@@ -127,7 +127,7 @@ export const followUser = async ({ commit }, payload) => {
 
   try {
     const response = await api.followUser(payload);
-    commit(types.FOLLOWING_CHANGE_SUCCESS, response.data);
+    commit(types.FOLLOWING_CHANGE_SUCCESS, { action: 'follow', data: response.data });
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     userData.following = response.data;
     localStorage.setItem('currentUser', JSON.stringify(userData));
@@ -141,7 +141,7 @@ export const unfollowUser = async ({ commit }, payload) => {
 
   try {
     const response = await api.unfollowUser(payload);
-    commit(types.FOLLOWING_CHANGE_SUCCESS, response.data);
+    commit(types.FOLLOWING_CHANGE_SUCCESS, { action: 'unfollow', data: response.data });
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     userData.following = response.data;
     localStorage.setItem('currentUser', JSON.stringify(userData));
