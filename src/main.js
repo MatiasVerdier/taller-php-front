@@ -16,6 +16,7 @@ import ResourceList from './components/UI/ResourceList';
 import ResponsiveVideo from './components/UI/ResponsiveVideo';
 import ResourceImage from './components/UI/ResourceImage';
 import UserPopover from './components/UI/UserPopover';
+import ErrorMessage from './components/UI/ErrorMessage';
 
 Vue.component('gravatar', Gravatar);
 Vue.component('markdown-editor', MarkdownEditor);
@@ -24,6 +25,7 @@ Vue.component('resource-list', ResourceList);
 Vue.component('responsive-video', ResponsiveVideo);
 Vue.component('resource-image', ResourceImage);
 Vue.component('user-popover', UserPopover);
+Vue.component('error-message', ErrorMessage);
 
 // Plugins
 Vue.use(ElementUI, { locale });

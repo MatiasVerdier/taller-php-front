@@ -1,11 +1,17 @@
 <template lang="html">
   <div class="resource-details">
+
+    <error-message v-show="permissionError" message="No esta autorizado para ver este recurso"></error-message>
+
     <div class="content" v-if="!isLoading && currentResource">
       <a href="#" @click.prevent="goBack">Volver</a>
 
       <div class="actions-container">
         <h1 class="title">{{ currentResource.title }}</h1>
-        <el-button type="primary" class="edit-button" icon="edit">Editar</el-button>
+
+        <template v-if="isOwner">
+          <el-button type="primary" class="edit-button" icon="edit">Editar</el-button>
+        </template>
       </div>
 
       <div class="body">
@@ -49,7 +55,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentResource', 'isLoading']),
+    ...mapGetters(['currentUser', 'currentResource', 'isLoading', 'currentError']),
+    isOwner() {
+      if (this.isLoading) return false;
+      return this.currentResource.user_id === this.currentUser.id;
+    },
+    permissionError() {
+      return this.currentError ? this.currentError.data.error === 'insufficient_permissions' : false;
+    },
   },
   methods: {
     ...mapActions(['getResource']),
