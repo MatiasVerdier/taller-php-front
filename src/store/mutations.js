@@ -88,6 +88,36 @@ const mutations = {
     Vue.set(state, 'error', error);
   },
 
+  [types.UPDATE_RESOURCE](state) {
+    Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
+  },
+
+  [types.UPDATE_RESOURCE_SUCCESS](state, resource) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'currentResource', resource);
+  },
+
+  [types.UPDATE_RESOURCE_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
+
+  [types.DELETE_RESOURCE](state) {
+    Vue.set(state, 'loading', true);
+    Vue.set(state, 'error', null);
+  },
+
+  [types.DELETE_RESOURCE_SUCCESS](state) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'currentResource', null);
+  },
+
+  [types.DELETE_RESOURCE_FAILURE](state, error) {
+    Vue.set(state, 'loading', false);
+    Vue.set(state, 'error', error);
+  },
+
   [types.UNAUTHENTICATED](state) {
     Vue.set(state, 'isAuthenticated', false);
     Vue.set(state, 'currentUser', null);

@@ -79,6 +79,28 @@ export const getResource = ({ commit }, payload) => {
     });
 };
 
+export const updateResource = async ({ commit }, payload) => {
+  commit(types.UPDATE_RESOURCE);
+
+  try {
+    const response = await api.updateResource(payload);
+    commit(types.UPDATE_RESOURCE_SUCCESS, response.data);
+  } catch (error) {
+    commit(types.UPDATE_RESOURCE_FAILURE, error.response);
+  }
+};
+
+export const deleteResource = async ({ commit }, payload) => {
+  commit(types.DELETE_RESOURCE);
+
+  try {
+    const response = await api.deleteResource(payload);
+    commit(types.DELETE_RESOURCE_SUCCESS, response.data);
+  } catch (error) {
+    commit(types.DELETE_RESOURCE_FAILURE, error.response);
+  }
+};
+
 export const unauthenticated = ({ commit }) => {
   commit(types.UNAUTHENTICATED);
 };
