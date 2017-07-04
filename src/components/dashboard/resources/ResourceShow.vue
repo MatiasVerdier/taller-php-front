@@ -20,7 +20,10 @@
       <a href="#" @click.prevent="goBack">Volver</a>
 
       <div class="actions-container">
-        <h1 class="title">{{ currentResource.title }}</h1>
+        <h1 class="title">
+          <visibility-indicator :status="currentResource.visibility"></visibility-indicator>
+          {{ currentResource.title }}
+        </h1>
 
         <template v-if="isOwner">
           <el-button type="danger" class="delete-button" icon="delete" @click="dialogVisible = true">Eliminar</el-button>

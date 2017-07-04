@@ -6,23 +6,26 @@
       <template v-if="resource.type === 'LINK'">
         <resource-image :resource="resource" height="150px"></resource-image>
 
-        <h2 class="title" @click="showResource">
-          {{ resource.title }}
-        </h2>
+        <div class="title-container">
+          <visibility-indicator :status="resource.visibility"></visibility-indicator>
+          <span @click="showResource" class="title">{{ resource.title }}</span>
+        </div>
       </template>
 
       <template v-else-if="resource.type === 'MARKDOWN'">
-        <h2 class="title" @click="showResource">
-          {{ resource.title }}
-        </h2>
+        <div class="title-container">
+          <visibility-indicator :status="resource.visibility"></visibility-indicator>
+          <span @click="showResource" class="title">{{ resource.title }}</span>
+        </div>
 
         <markdown-editor :value="resource.markdown" :isEditing="false" :isSmall="true"></markdown-editor>
       </template>
 
       <template v-else="resource.type === 'CODE'">
-        <h2 class="title" @click="showResource">
-          {{ resource.title }}
-        </h2>
+        <div class="title-container">
+          <visibility-indicator :status="resource.visibility"></visibility-indicator>
+          <span @click="showResource" class="title">{{ resource.title }}</span>
+        </div>
 
         <code-editor :code="resource.code" height="140px" :controls="false" :language="resource.code_type"></code-editor>
       </template>
@@ -150,7 +153,7 @@ $hover-color: #2980b9;
       margin-top: 20px;
     }
 
-    .title {
+    .title-container {
       margin-bottom: 10px;
     }
   }
@@ -158,13 +161,6 @@ $hover-color: #2980b9;
   .resource-content {
     height: $content-height;
     overflow: hidden;
-
-    &:hover {
-      cursor: pointer;
-      .title {
-        color: $hover-color;
-      }
-    }
 
     .link-image {
       min-height: 150px;
@@ -174,8 +170,16 @@ $hover-color: #2980b9;
   }
 
   .title {
-    font-size: 20px;
     color: #2c3e50;
+
+    &:hover {
+      cursor: pointer;
+      color: $hover-color;
+    }
+  }
+
+  .title-container {
+    font-size: 20px;
     margin-top: 10px;
   }
 
