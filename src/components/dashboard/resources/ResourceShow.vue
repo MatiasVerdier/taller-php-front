@@ -3,6 +3,19 @@
 
     <error-message v-show="permissionError" message="No esta autorizado para ver este recurso"></error-message>
 
+    <el-dialog
+      title="Confirmar acción"
+      :visible.sync="dialogVisible"
+      size="tiny">
+      <span class="dialog-message" style="font-size: 30px;">
+        Esta seguro que desea eliminar este elemento?
+      </span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancelar</el-button>
+        <el-button type="danger" @click="confirmDelete" icon="delete">Eliminar</el-button>
+      </span>
+    </el-dialog>
+
     <div class="content" v-if="!isLoading && currentResource">
       <a href="#" @click.prevent="goBack">Volver</a>
 
@@ -10,6 +23,7 @@
         <h1 class="title">{{ currentResource.title }}</h1>
 
         <template v-if="isOwner">
+          <el-button type="danger" class="delete-button" icon="delete" @click="dialogVisible = true">Eliminar</el-button>
           <el-button type="primary" class="edit-button" icon="edit">Editar</el-button>
         </template>
       </div>
@@ -54,6 +68,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
   computed: {
     ...mapGetters(['currentUser', 'currentResource', 'isLoading', 'currentError']),
     isOwner() {
@@ -63,11 +82,24 @@ export default {
     permissionError() {
       return this.currentError ? this.currentError.data.error === 'insufficient_permissions' : false;
     },
+    errorMessage() {
+    },
   },
   methods: {
-    ...mapActions(['getResource']),
+    ...mapActions(['getResource', 'updateResource', 'deleteResource']),
     goBack() {
       this.$router.go(-1);
+    },
+    confirmDelete() {
+      this.dialogVisible = false;
+      this.deleteResource(this.currentResource.id);
+
+      this.$message({
+        message: 'El recurso se ha eliminado con exito',
+        type: 'success',
+      });
+
+      this.$router.push({ name: 'my-resources' });
     },
   },
 };
@@ -94,8 +126,11 @@ export default {
     min-height: 40vh;
   }
 
-  .edit-button {
+  .edit-button, .delete-button {
     float: right;
+  }
+  .edit-button {
+    margin-right: 20px;
   }
 }
 </style>
