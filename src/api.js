@@ -30,6 +30,7 @@ const addResource = data => axios.post('/resources', data);
 const getMyResources = userid => axios.get(`/users/${userid}/resources`);
 const getResource = resourceid => axios.get(`/resources/${resourceid}`);
 const updateResource = data => axios.put(`/resources/${data.id}`, data);
+const deleteResource = resourceId => axios.delete(`/resources/${resourceId}`);
 
 // Get link metadata
 const getLinkMetadata = linkUrl => axiosMeta.post('/', {
@@ -60,6 +61,7 @@ export default {
   getMyResources,
   getResource,
   updateResource,
+  deleteResource,
   getLinkMetadata,
   updateResourceMetadata,
   getUserProfile,
