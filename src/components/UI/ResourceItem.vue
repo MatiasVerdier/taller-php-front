@@ -42,9 +42,9 @@
       </a>
 
       <div class="action-buttons" v-if="currentUser">
-        <span class="action-edit" v-if="currentUser.id === resource.owner.id">
+        <router-link :to="{ name: 'edit', params: {id: resource.id, editing: true} }" class="action-edit">
           <i class="fa fa-pencil" ></i>
-        </span>
+        </router-link>
 
         <span class="action-delete" v-if="currentUser.id === resource.owner.id">
           <i class="fa fa-trash" ></i>
@@ -98,6 +98,7 @@ $content-height: 200px;
 $card-height: $content-height + 50px;
 $card-padding: 20px;
 
+$text-color: #2c3e50;
 $hover-color: #2980b9;
 
 .card-resource {
@@ -174,7 +175,7 @@ $hover-color: #2980b9;
   }
 
   .title {
-    color: #2c3e50;
+    color: $text-color;
 
     &:hover {
       cursor: pointer;
@@ -222,8 +223,12 @@ $hover-color: #2980b9;
         color: $hover-color;
       }
 
-      .action-edit:hover {
-        color: $hover-color;
+      .action-edit {
+        color: $text-color;
+
+        &:hover {
+          color: $hover-color;
+        }
       }
     }
   }
