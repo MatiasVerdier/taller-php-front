@@ -38,7 +38,7 @@
           <el-button type="primary" class="edit-button" icon="edit" @click="editResource" v-if="!editing">Editar</el-button>
 
           <el-button type="success" class="save-button" icon="check" @click="saveResource" v-if="editing">Guardar</el-button>
-          <el-button class="cancel-button" v-if="editing" @click="backToShow">Cancelar</el-button>
+          <el-button class="cancel-button" v-if="editing" @click="goBack">Cancelar</el-button>
         </template>
       </div>
 
@@ -137,13 +137,8 @@ export default {
         },
       });
     },
-    backToShow() {
-      this.$router.push({
-        name: 'show',
-        params: {
-          id: this.currentResource.id,
-        },
-      });
+    goBack() {
+      this.$router.go(-1);
     },
     saveResource() {
       this.updateResource(this.currentResource);
