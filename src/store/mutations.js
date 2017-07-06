@@ -42,6 +42,7 @@ const mutations = {
   },
 
   [types.GET_RESOURCES](state) {
+    Vue.set(state, 'resources', []);
     Vue.set(state, 'loading', true);
     Vue.set(state, 'error', null);
   },
@@ -57,12 +58,13 @@ const mutations = {
   },
 
   [types.GET_MY_RESOURCES](state) {
+    Vue.set(state, 'resources', []);
     Vue.set(state, 'loading', true);
     Vue.set(state, 'error', null);
   },
 
   [types.GET_MY_RESOURCES_SUCCESS](state, resources) {
-    Vue.set(state, 'myResources', resources);
+    Vue.set(state, 'resources', resources);
     Vue.set(state, 'loading', false);
   },
 
