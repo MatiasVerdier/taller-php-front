@@ -42,7 +42,7 @@
       </a>
 
       <div class="action-buttons" v-if="currentUser">
-        <router-link :to="{ name: 'edit', params: {id: resource.id, editing: true} }" class="action-edit">
+        <router-link v-if="currentUser.id === resource.owner.id" :to="{ name: 'edit', params: {id: resource.id, editing: true} }" class="action-edit">
           <i class="fa fa-pencil" ></i>
         </router-link>
 
