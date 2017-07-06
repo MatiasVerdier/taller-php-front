@@ -142,7 +142,18 @@ export default {
     },
     saveResource() {
       this.updateResource(this.currentResource);
-      this.backToShow();
+      if (this.currentResource.type === 'LINK') {
+        const url = this.currentResource.link;
+        const { id } = this.currentResource;
+        this.$store.dispatch('getLinkMetadata', { url, resourceId: id });
+      }
+
+      this.$message({
+        message: 'El recurso se ha actualizado con exito',
+        type: 'success',
+      });
+
+      this.goBack();
     },
     onMarkdownInput(value) {
       this.currentResource.markdown = value;
