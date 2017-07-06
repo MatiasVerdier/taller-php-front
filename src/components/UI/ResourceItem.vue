@@ -42,12 +42,16 @@
       </a>
 
       <div class="action-buttons" v-if="currentUser">
+        <span class="action-edit" v-if="currentUser.id === resource.owner.id">
+          <i class="fa fa-pencil" ></i>
+        </span>
+
         <span class="action-delete" v-if="currentUser.id === resource.owner.id">
           <i class="fa fa-trash" ></i>
         </span>
 
         <span class="action-like">
-          <i class="fa fa-heart-o"></i>
+          <i class="fa fa-heart-o"></i> <span v-show="resource.likes > 0">{{ resource.likes }}</span>
         </span>
       </div>
     </div>
@@ -202,11 +206,23 @@ $hover-color: #2980b9;
         margin-left: 10px;
       }
 
-      .action-like:hover {
-        color: #ff4949;
+      .action-like {
+        span {
+          font-size: 0.8em;
+          position: relative;
+          top: -2px;
+          left: -2px;
+        }
+        &:hover {
+          color: #ff4949;
+        }
       }
 
       .action-delete:hover {
+        color: $hover-color;
+      }
+
+      .action-edit:hover {
         color: $hover-color;
       }
     }
