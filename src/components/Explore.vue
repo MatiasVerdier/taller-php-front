@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="Explore">
     <el-row type="flex" justify="center">
-      <el-col :xs="22" :md="19">
+      <el-col :span="24">
         <resource-list :resources="resources"></resource-list>
       </el-col>
     </el-row>
