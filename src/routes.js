@@ -9,7 +9,6 @@ import Profile from './components/Profile';
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { onlyGuest: true } },
-  { path: '/explore', name: 'explore', component: Explore },
   { path: '/login', name: 'login', component: Authenticate, meta: { onlyGuest: true } },
   {
     path: '/dashboard',
@@ -37,6 +36,7 @@ const routes = [
         name: 'profile',
         component: Profile,
       },
+      { path: '/explore', name: 'explore', component: Explore },
     ],
   },
 ];
