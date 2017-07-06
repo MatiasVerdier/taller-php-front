@@ -30,6 +30,9 @@ const routes = [
         path: 'show/:id', name: 'show', component: ResourceShow, props: true,
       },
       {
+        path: 'edit/:id', name: 'edit', component: ResourceShow, props: true,
+      },
+      {
         path: '/profile',
         name: 'profile',
         component: Profile,

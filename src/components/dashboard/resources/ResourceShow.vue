@@ -17,24 +17,39 @@
     </el-dialog>
 
     <div class="content" v-if="!isLoading && currentResource">
-      <a href="#" @click.prevent="goBack">Volver</a>
+      <a href="#" @click.prevent="backToList" v-show="!editing">Volver al listado</a>
 
       <div class="actions-container">
         <h1 class="title">
-          <visibility-indicator :status="currentResource.visibility"></visibility-indicator>
-          {{ currentResource.title }}
+          <visibility-indicator :status="currentResource.visibility" v-show="!editing"></visibility-indicator>
+          <span v-show="!editing">{{ currentResource.title }}</span>
+
+          <el-input placeholder="Título" v-show="editing" v-model="currentResource.title">
+            <el-select v-model="currentResource.visibility" slot="prepend" placeholder="Visibilidad">
+              <el-option label="Público" value="PUBLIC"></el-option>
+              <el-option label="Compartido" value="SHARED"></el-option>
+              <el-option label="Privado" value="PRIVATE"></el-option>
+            </el-select>
+          </el-input>
         </h1>
 
         <template v-if="isOwner">
-          <el-button type="danger" class="delete-button" icon="delete" @click="dialogVisible = true">Eliminar</el-button>
-          <el-button type="primary" class="edit-button" icon="edit">Editar</el-button>
+          <el-button type="danger" class="delete-button" icon="delete" @click="dialogVisible = true" v-if="!editing">Eliminar</el-button>
+          <el-button type="primary" class="edit-button" icon="edit" @click="editResource" v-if="!editing">Editar</el-button>
+
+          <el-button type="success" class="save-button" icon="check" @click="saveResource" v-if="editing">Guardar</el-button>
+          <el-button class="cancel-button" v-if="editing" @click="backToShow">Cancelar</el-button>
         </template>
       </div>
 
       <div class="body">
         <template v-if="currentResource.type === 'LINK'">
           <el-row>
-            <el-col :x2="20" :sm="18" :md="14">
+            <el-col :xs="20" :sm="18" :md="14">
+              <div class="link-input">
+                <el-input placeholder="Link" v-show="editing" v-model="currentResource.link"></el-input>
+              </div>
+
               <div class="resource-video" v-if="currentResource.link_type === 'video'">
                 <responsive-video  :url="currentResource.link"></responsive-video>
               </div>
@@ -46,11 +61,21 @@
         </template>
 
         <template v-else-if="currentResource.type === 'MARKDOWN'">
-          <markdown-editor :value="currentResource.markdown" :isEditing="false"></markdown-editor>
+          <markdown-editor
+            :value="currentResource.markdown"
+            :isEditing="editing"
+            @input="onMarkdownInput"
+          ></markdown-editor>
         </template>
 
         <template v-else="currentResource.type === 'CODE'">
-          <code-editor :code="currentResource.code" :language="currentResource.code_type"></code-editor>
+          <code-editor
+            :code="currentResource.code"
+            :language="currentResource.code_type"
+            :isEditing="editing"
+            @input="onCodeInput"
+            @languageChange="onLanguageChange"
+          ></code-editor>
         </template>
       </div>
     </div>
@@ -67,9 +92,8 @@ export default {
     this.getResource(this.id);
   },
   props: {
-    id: {
-      required: true,
-    },
+    id: { type: [String, Number], required: true },
+    editing: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -90,8 +114,8 @@ export default {
   },
   methods: {
     ...mapActions(['getResource', 'updateResource', 'deleteResource']),
-    goBack() {
-      this.$router.go(-1);
+    backToList() {
+      this.$router.push({ name: 'my-resources' });
     },
     confirmDelete() {
       this.dialogVisible = false;
@@ -103,6 +127,36 @@ export default {
       });
 
       this.$router.push({ name: 'my-resources' });
+    },
+    editResource() {
+      this.$router.push({
+        name: 'edit',
+        params: {
+          id: this.currentResource.id,
+          editing: true,
+        },
+      });
+    },
+    backToShow() {
+      this.$router.push({
+        name: 'show',
+        params: {
+          id: this.currentResource.id,
+        },
+      });
+    },
+    saveResource() {
+      this.updateResource(this.currentResource);
+      this.backToShow();
+    },
+    onMarkdownInput(value) {
+      this.currentResource.markdown = value;
+    },
+    onCodeInput(value) {
+      this.currentResource.code = value;
+    },
+    onLanguageChange(value) {
+      this.currentResource.code_type = value;
     },
   },
 };
@@ -118,21 +172,34 @@ export default {
 
   .body {
     padding: 20px 0;
+
+    .link-input {
+      margin-bottom: 20px;
+    }
   }
 
   .title {
     font-size: 2em;
     display: inline-block;
+    min-width: 70%;
+
+    .el-select {
+      width: 130px;
+    }
+
+    .el-input-group {
+      vertical-align: middle;
+    }
   }
 
   .loading {
     min-height: 40vh;
   }
 
-  .edit-button, .delete-button {
+  .edit-button, .delete-button, .cancel-button, .save-button {
     float: right;
   }
-  .edit-button {
+  .edit-button, .cancel-button {
     margin-right: 20px;
   }
 }
