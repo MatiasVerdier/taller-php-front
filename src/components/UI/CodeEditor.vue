@@ -230,6 +230,9 @@ export default {
     selectedTheme: function (newTheme) {// eslint-disable-line
       this.editor.setTheme(`ace/theme/${newTheme}`);
     },
+    isEditing: function (newValue) { // eslint-disable-line
+      this.editor.setReadOnly(!newValue);
+    },
   },
   mounted() {
     this.editor = window.ace.edit(this.$refs.editorBody);
