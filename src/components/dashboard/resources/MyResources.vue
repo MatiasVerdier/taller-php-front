@@ -10,7 +10,7 @@
         </el-tab-pane>
 
         <el-tab-pane label="Compartidos conmigo" name="shared-with-me">
-
+          <resource-list :resources="sharedWithMe"></resource-list>
         </el-tab-pane>
       </el-tabs>
     </el-col>
@@ -37,7 +37,7 @@ export default {
     ...mapActions(['getMyResources']),
   },
   computed: {
-    ...mapGetters(['currentUser', 'myResources']),
+    ...mapGetters(['currentUser', 'myResources', 'sharedWithMe']),
   },
   components: {
     ResourceCreateButtons,
