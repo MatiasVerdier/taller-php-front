@@ -162,14 +162,14 @@ const mutations = {
   [types.GET_USER_PUBLIC_INFO](state) {
     Vue.set(state, 'lookingUserInfo', {});
     Vue.set(state, 'error', null);
-    Vue.set(state, 'loading', true);
+    Vue.set(state, 'loadingUser', true);
   },
 
   [types.GET_USER_PUBLIC_INFO_SUCCESS](state, payload) {
     const userInfo = payload;
     userInfo.followersCount = userInfo.followers ? userInfo.followers.length : 0;
     userInfo.followingCount = userInfo.following ? userInfo.following.length : 0;
-    Vue.set(state, 'loading', false);
+    Vue.set(state, 'loadingUser', false);
     Vue.set(state, 'lookingUserInfo', userInfo);
   },
 
