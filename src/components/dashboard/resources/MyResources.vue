@@ -5,11 +5,11 @@
 
     <el-col :span="24">
       <el-tabs value="my-resources">
-        <el-tab-pane label="Mis Resursos" name="my-resources">
+        <el-tab-pane :label="tabsLabels.myResources" name="my-resources">
           <resource-list :resources="myResources"></resource-list>
         </el-tab-pane>
 
-        <el-tab-pane label="Compartidos conmigo" name="shared-with-me">
+        <el-tab-pane :label="tabsLabels.sharedWithMe" name="shared-with-me">
           <resource-list :resources="sharedWithMe"></resource-list>
         </el-tab-pane>
       </el-tabs>
@@ -19,7 +19,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import ResourceCreateButtons from './ResourceCreateButtons';
 
 export default {
   mounted() {
@@ -38,9 +37,12 @@ export default {
   },
   computed: {
     ...mapGetters(['currentUser', 'myResources', 'sharedWithMe']),
-  },
-  components: {
-    ResourceCreateButtons,
+    tabsLabels() {
+      return {
+        myResources: `Mis Recursos (${this.myResources.length})`,
+        sharedWithMe: `Compartidos conmigo (${this.sharedWithMe.length})`,
+      };
+    },
   },
 };
 </script>
