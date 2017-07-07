@@ -12,8 +12,12 @@ body {
 a {
   color: #1b86d5;
   text-decoration: none;
-  
+
   &:hover {
     color: #20a0ff;
   }
+}
+
+.loading {
+  min-height: 40vh;
 }

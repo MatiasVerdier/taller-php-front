@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div v-else class="loading" v-loading="isLoading"></div>
+    <div v-show="isLoading" class="loading" v-loading="isLoading" element-loading-text="Cargando"></div>
   </div>
 </template>
 
@@ -196,10 +196,6 @@ export default {
     .el-input-group {
       vertical-align: middle;
     }
-  }
-
-  .loading {
-    min-height: 40vh;
   }
 
   .edit-button, .delete-button, .cancel-button, .save-button {
