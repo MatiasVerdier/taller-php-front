@@ -179,19 +179,19 @@ const mutations = {
   },
 
   [types.FOLLOWING_CHANGE](state) {
-    Vue.set(state, 'loading', true);
+    Vue.set(state, 'loadingFollowChange', true);
     Vue.set(state, 'error', null);
   },
 
   [types.FOLLOWING_CHANGE_SUCCESS](state, payload) {
     const followersCount = state.lookingUserInfo.followersCount;
-    Vue.set(state, 'loading', false);
+    Vue.set(state, 'loadingFollowChange', false);
     Vue.set(state.currentUser, 'following', payload.data);
     Vue.set(state.lookingUserInfo, 'followersCount', payload.action === 'follow' ? followersCount + 1 : followersCount - 1);
   },
 
   [types.FOLLOWING_CHANGE_FAILURE](state, error) {
-    Vue.set(state, 'loading', false);
+    Vue.set(state, 'loadingFollowChange', false);
     Vue.set(state, 'error', error);
   },
 };
