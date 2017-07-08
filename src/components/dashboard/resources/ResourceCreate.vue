@@ -19,6 +19,14 @@
                 <el-input v-model="resource.link" placeholder="Inserta tu link"></el-input>
               </el-form-item>
 
+              <el-form-item label="Visibilidad">
+                <el-select v-model="resource.visibility" placeholder="Visibilidad">
+                  <el-option label="Público" value="PUBLIC"></el-option>
+                  <el-option label="Compartido" value="SHARED"></el-option>
+                  <el-option label="Privado" value="PRIVATE"></el-option>
+                </el-select>
+              </el-form-item>
+
               <markdown-editor :value="resource.markdown" @input="onMarkdownInput" :isEditing="true" v-if="type === 'MARKDOWN'"></markdown-editor>
 
               <code-editor
@@ -63,6 +71,7 @@ export default {
     return {
       resource: {
         title: '',
+        visibility: 'PRIVATE',
         description: '',
         link: '',
         markdown: '',
@@ -103,6 +112,7 @@ export default {
       const data = {
         title: this.resource.title,
         type,
+        visibility: this.resource.visibility,
       };
 
       if (type === 'LINK') data.link = this.resource.link;
@@ -141,6 +151,12 @@ export default {
 <style lang="scss">
 .resource-create {
   padding: 20px;
+
+  .title {
+    .el-select {
+      min-width: 130px;
+    }
+  }
 }
 
 .change-type {
