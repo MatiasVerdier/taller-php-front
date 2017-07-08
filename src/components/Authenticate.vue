@@ -2,7 +2,8 @@
   <div class="Authenticate">
     <el-card class="login-card">
       <h2 slot="header">Entrar al sitio</h2>
-      <form @submit.prevent="login">
+
+      <el-form :model="form" :rules="rules" ref="loginForm">
         <div class="input-field">
           <el-alert
             v-show="loginError"
@@ -13,33 +14,55 @@
             :closable="true">
           </el-alert>
         </div>
-          
-        <div v-if="!form.isLogin" class="input-field">
-          <el-input v-if="!form.isLogin" size="large" v-model="form.username" placeholder="Tu nombre de usuario único"></el-input>
-        </div>
-        
-        <div class="input-field">
-          <el-input size="large" v-model="form.email" required placeholder="Tu dirección de correo"></el-input>
-        </div>
-        
-        <div class="input-field">
-          <el-input type="password" size="large" v-model="form.password" required placeholder="Tu contraseña super secreta" @keyup.enter=""></el-input>
-        </div>
-        
-        <el-row type="flex" justify="center">
-          <button type="submit" v-bind:class="{ 'is-loading': isLoading}" class="el-button el-button--primary">
-            <i v-show="isLoading" class="el-icon-loading"></i>
-            {{buttonText}}
-          </button>
-        </el-row>
-        
+
+        <el-form-item prop="username" v-if="!form.isLogin">
+          <el-input
+            v-if="!form.isLogin"
+            size="large"
+            v-model="form.username"
+            placeholder="Tu nombre de usuario único"
+            @keyup.native.enter="submitForm">
+          </el-input>
+        </el-form-item>
+
+        <el-form-item prop="email">
+          <el-input
+            type="email"
+            size="large"
+            auto-complete="on"
+            v-model="form.email"
+            placeholder="Tu dirección de correo"
+            @keyup.native.enter="submitForm">
+          </el-input>
+        </el-form-item>
+
+        <el-form-item prop="password">
+          <el-input
+            type="password"
+            size="large"
+            v-model="form.password"
+            placeholder="Tu contraseña super secreta"
+            @keyup.native.enter="submitForm">
+          </el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-row type="flex" justify="center">
+            <el-button type="primary" v-bind:class="{ 'is-loading': isLoading}" @click="submitForm">
+              <i v-show="isLoading" class="el-icon-loading"></i>
+              {{buttonText}}
+            </el-button>
+          </el-row>
+        </el-form-item>
+
         <el-row type="flex" justify="center">
           <div class="form-links">
             <a href="#" @click.prevent="form.isLogin = false" v-if="form.isLogin">No tienes cuenta?</a>
             <a href="#" @click.prevent="form.isLogin = true" v-else="form.isLogin">Ya tienes cuenta?</a>
           </div>
         </el-row>
-      </form>
+      </el-form>
+
     </el-card>
   </div>
 </template>
@@ -57,6 +80,15 @@ export default {
         password: '',
         isLogin: true,
       },
+      rules: {
+        email: [
+          { type: 'email', message: 'Debe ser una dirección de correo válida', trigger: 'blur' },
+          { required: true, message: 'El email es requerido' },
+        ],
+        password: [
+          { required: true, message: 'Debe ingresar una contraseña' },
+        ],
+      },
     };
   },
   computed: {
@@ -72,20 +104,24 @@ export default {
     errorDescription() {
       const error = this.loginError ? this.loginError.error : '';
       let errorMessage = '';
-      
+
       if (error === 'invalid_credentials') {
         errorMessage = 'El email y/o la contraseña son incorrectos';
       }
-      
+
       return errorMessage;
     },
     ...mapGetters(['isLoading', 'loginError']),
   },
   methods: {
+    submitForm() {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.login();
+        }
+      });
+    },
     login() {
-      if (this.form.email === '' || this.form.password === '') return;
-      if (!this.form.isLogin && this.form.username === '') return;
-      
       this.$store.dispatch('login', {
         username: this.form.username,
         email: this.form.email,
@@ -96,7 +132,7 @@ export default {
         this.$store.commit(types.LOGIN_SUCCESS);
         localStorage.setItem('token', data);
         this.$router.push({ name: 'dashboard' });
-        
+
         this.$store.dispatch('getUser').then((response) => {
           const user = response.data;
           this.$store.commit(types.GET_USER_SUCCESS, { user });
