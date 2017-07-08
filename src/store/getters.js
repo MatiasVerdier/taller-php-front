@@ -8,10 +8,10 @@ export const currentUserFollowing = (state) => { // eslint-disable-line
 
 export const resources = state => state.resources;
 
-export const myResources = state => state.resources
+export const myResources = state => state.myResources
   .filter(item => state.currentUser && state.currentUser.id === item.owner.id);
 
-export const sharedWithMe = state => state.resources
+export const sharedWithMe = state => state.myResources
   .filter(item => state.currentUser && state.currentUser.id !== item.owner.id);
 
 export const currentResource = state => state.currentResource;

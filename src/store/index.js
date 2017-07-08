@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     isAuthenticated: !!localStorage.getItem('token'),
     currentUser: JSON.parse(localStorage.getItem('currentUser')),
     resources: [],
+    myResources: [],
     lookingUserInfo: {},
   },
   actions,

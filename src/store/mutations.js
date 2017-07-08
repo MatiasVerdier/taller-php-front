@@ -58,13 +58,13 @@ const mutations = {
   },
 
   [types.GET_MY_RESOURCES](state) {
-    Vue.set(state, 'resources', []);
+    Vue.set(state, 'myResources', []);
     Vue.set(state, 'loading', true);
     Vue.set(state, 'error', null);
   },
 
   [types.GET_MY_RESOURCES_SUCCESS](state, resources) {
-    Vue.set(state, 'resources', resources);
+    Vue.set(state, 'myResources', resources);
     Vue.set(state, 'loading', false);
   },
 
@@ -111,6 +111,8 @@ const mutations = {
   },
 
   [types.DELETE_RESOURCE_SUCCESS](state) {
+    const id = state.currentResource.id;
+    Vue.set(state, 'myResources', state.myResources.filter(item => item.id !== id));
     Vue.set(state, 'loading', false);
     Vue.set(state, 'currentResource', null);
   },
@@ -174,7 +176,7 @@ const mutations = {
   },
 
   [types.GET_USER_PUBLIC_INFO_FAILURE](state, error) {
-    Vue.set(state, 'loading', false);
+    Vue.set(state, 'loadingUser', false);
     Vue.set(state, 'error', error);
   },
 
