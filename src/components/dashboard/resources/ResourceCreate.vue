@@ -10,16 +10,16 @@
       <el-col :span="18">
         <div class="content">
           <el-card>
-            <el-form :model="resource" label-position="top">
-              <el-form-item label="Titulo">
+            <el-form :model="resource" label-position="top" :rules="rules" ref="resourceForm">
+              <el-form-item label="Titulo" prop="title">
                 <el-input v-model="resource.title" placeholder="De que se trata"></el-input>
               </el-form-item>
 
-              <el-form-item label="Url" v-if="type === 'LINK'">
+              <el-form-item label="Url" v-if="type === 'LINK'" prop="link">
                 <el-input v-model="resource.link" placeholder="Inserta tu link"></el-input>
               </el-form-item>
 
-              <el-form-item label="Visibilidad">
+              <el-form-item label="Visibilidad" prop="visibility">
                 <el-select v-model="resource.visibility" placeholder="Visibilidad">
                   <el-option label="Público" value="PUBLIC"></el-option>
                   <el-option label="Compartido" value="SHARED"></el-option>
@@ -27,23 +27,26 @@
                 </el-select>
               </el-form-item>
 
-              <markdown-editor :value="resource.markdown" @input="onMarkdownInput" :isEditing="true" v-if="type === 'MARKDOWN'"></markdown-editor>
+              <el-form-item prop="markdown" v-if="type === 'MARKDOWN'">
+                <markdown-editor :value="resource.markdown" @input="onMarkdownInput" :isEditing="true"></markdown-editor>
+              </el-form-item>
 
-              <code-editor
-                v-if="type === 'CODE'"
-                :code="resource.code"
-                :language="resource.code_type"
-                @input="onCodeInput"
-                @languageChange="onLanguageChange"
-                :isEditing="true">
-              </code-editor>
+              <el-form-item prop="code" v-if="type === 'CODE'">
+                <code-editor
+                  :code="resource.code"
+                  :language="resource.code_type"
+                  @input="onCodeInput"
+                  @languageChange="onLanguageChange"
+                  :isEditing="true">
+                </code-editor>
+              </el-form-item>
             </el-form>
 
             <el-button @click="backToList">
               Cancelar
             </el-button>
 
-            <el-button type="primary" @click="addResource">
+            <el-button type="primary" @click="submitForm">
               Guardar
             </el-button>
           </el-card>
@@ -78,6 +81,22 @@ export default {
         code: '',
         code_type: 'javascript',
       },
+      rules: {
+        title: [
+          { required: true, message: 'Debe ingresar un título' },
+          { min: 10, message: 'Debe contar con al menos 10 caracteres', trigger: 'blur' },
+        ],
+        link: [
+          { required: true, message: 'Debe ingresar un link' },
+          { type: 'url', message: 'Debe ser una url válida', trigger: 'blur' },
+        ],
+        markdown: [
+          { required: true, message: 'Debe ingresar algún contenido' },
+        ],
+        code: [
+          { required: true, message: 'Debe ingresar algún contenido' },
+        ],
+      },
     };
   },
   computed: {
@@ -106,6 +125,11 @@ export default {
     },
     onLanguageChange(value) {
       this.resource.code_type = value;
+    },
+    submitForm() {
+      this.$refs.resourceForm.validate((valid) => {
+        if (valid) this.addResource();
+      });
     },
     addResource() {
       const { type } = this;
