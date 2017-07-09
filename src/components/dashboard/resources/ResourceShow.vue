@@ -16,7 +16,7 @@
       </span>
     </el-dialog>
 
-    <div class="content" v-if="!isLoading && currentResource">
+    <el-form class="content" v-if="!isLoading && currentResource" :model="currentEditingResource" :rules="rules" ref="resourceEditForm">
       <a href="#" @click.prevent="backToList" v-show="!editing">Volver al listado</a>
 
       <div class="actions-container">
@@ -24,13 +24,15 @@
           <visibility-indicator :status="currentResource.visibility" v-show="!editing"></visibility-indicator>
           <span v-show="!editing">{{ currentResource.title }}</span>
 
-          <el-input placeholder="Título" v-show="editing" v-model="currentResource.title">
-            <el-select v-model="currentResource.visibility" slot="prepend" placeholder="Visibilidad">
-              <el-option label="Público" value="PUBLIC"></el-option>
-              <el-option label="Compartido" value="SHARED"></el-option>
-              <el-option label="Privado" value="PRIVATE"></el-option>
-            </el-select>
-          </el-input>
+          <el-form-item prop="title">
+            <el-input placeholder="Título" v-show="editing" v-model="currentEditingResource.title">
+              <el-select v-model="currentEditingResource.visibility" slot="prepend" placeholder="Visibilidad">
+                <el-option label="Público" value="PUBLIC"></el-option>
+                <el-option label="Compartido" value="SHARED"></el-option>
+                <el-option label="Privado" value="PRIVATE"></el-option>
+              </el-select>
+            </el-input>
+          </el-form-item>
         </h1>
 
         <template v-if="isOwner">
@@ -46,9 +48,9 @@
         <template v-if="currentResource.type === 'LINK'">
           <el-row>
             <el-col :xs="20" :sm="18" :md="14">
-              <div class="link-input">
-                <el-input placeholder="Link" v-show="editing" v-model="currentResource.link"></el-input>
-              </div>
+              <el-form-item class="link-input" prop="link" v-if="editing">
+                <el-input placeholder="Link" v-model="currentEditingResource.link"></el-input>
+              </el-form-item>
 
               <div class="resource-video" v-if="currentResource.link_type === 'video'">
                 <responsive-video  :url="currentResource.link"></responsive-video>
@@ -60,25 +62,25 @@
           </el-row>
         </template>
 
-        <template v-else-if="currentResource.type === 'MARKDOWN'">
+        <el-form-item v-if="currentResource.type === 'MARKDOWN'" prop="markdown">
           <markdown-editor
-            :value="currentResource.markdown"
+            :value="currentEditingResource.markdown"
             :isEditing="editing"
             @input="onMarkdownInput"
           ></markdown-editor>
-        </template>
+        </el-form-item>
 
-        <template v-else="currentResource.type === 'CODE'">
+        <el-form-item v-if="currentResource.type === 'CODE'" prop="code">
           <code-editor
-            :code="currentResource.code"
-            :language="currentResource.code_type"
+            :code="currentEditingResource.code"
+            :language="currentEditingResource.code_type"
             :isEditing="editing"
             @input="onCodeInput"
             @languageChange="onLanguageChange"
           ></code-editor>
-        </template>
+        </el-form-item>
       </div>
-    </div>
+    </el-form>
 
     <div v-show="isLoading" class="loading" v-loading="isLoading" element-loading-text="Cargando"></div>
   </div>
@@ -98,10 +100,26 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      rules: {
+        title: [
+          { required: true, message: 'Debe ingresar un título' },
+          { min: 10, message: 'Debe contar con al menos 10 caracteres', trigger: 'blur' },
+        ],
+        link: [
+          { required: true, message: 'Debe ingresar un link' },
+          { type: 'url', message: 'Debe ser una url válida', trigger: 'blur' },
+        ],
+        markdown: [
+          { required: true, message: 'Debe ingresar algún contenido' },
+        ],
+        code: [
+          { required: true, message: 'Debe ingresar algún contenido' },
+        ],
+      },
     };
   },
   computed: {
-    ...mapGetters(['currentUser', 'currentResource', 'isLoading', 'currentError']),
+    ...mapGetters(['currentUser', 'currentResource', 'currentEditingResource', 'isLoading', 'currentError']),
     isOwner() {
       if (this.isLoading) return false;
       return this.currentResource.user_id === this.currentUser.id;
@@ -141,28 +159,32 @@ export default {
       this.$router.go(-1);
     },
     saveResource() {
-      this.updateResource(this.currentResource);
-      if (this.currentResource.type === 'LINK') {
-        const url = this.currentResource.link;
-        const { id } = this.currentResource;
-        this.$store.dispatch('getLinkMetadata', { url, resourceId: id });
-      }
+      this.$refs.resourceEditForm.validate((valid) => {
+        if (valid) {
+          this.updateResource(this.currentEditingResource);
+          if (this.currentResource.type === 'LINK') {
+            const url = this.currentEditingResource.link;
+            const { id } = this.currentResource;
+            this.$store.dispatch('getLinkMetadata', { url, resourceId: id });
+          }
 
-      this.$message({
-        message: 'El recurso se ha actualizado con exito',
-        type: 'success',
+          this.$message({
+            message: 'El recurso se ha actualizado con exito',
+            type: 'success',
+          });
+
+          this.goBack();
+        }
       });
-
-      this.goBack();
     },
     onMarkdownInput(value) {
-      this.currentResource.markdown = value;
+      this.currentEditingResource.markdown = value;
     },
     onCodeInput(value) {
-      this.currentResource.code = value;
+      this.currentEditingResource.code = value;
     },
     onLanguageChange(value) {
-      this.currentResource.code_type = value;
+      this.currentEditingResource.code_type = value;
     },
   },
 };

@@ -15,6 +15,7 @@ export const sharedWithMe = state => state.myResources
   .filter(item => state.currentUser && state.currentUser.id !== item.owner.id);
 
 export const currentResource = state => state.currentResource;
+export const currentEditingResource = state => Object.assign({}, state.currentResource);
 
 export const isLoading = state => state.loading;
 
