@@ -1,6 +1,6 @@
 <template lang="html">
   <el-card class="note-item">
-    <div v-html="compiledBody" class="editor-preview"></div>
+    <div v-html="compiledBody" class="editor-preview visible"></div>
   </el-card>
 </template>
 
