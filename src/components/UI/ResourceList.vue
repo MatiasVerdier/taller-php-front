@@ -49,15 +49,4 @@ export default {
     font-size: 3em;
     padding: 10px 0;
   }
-
-  .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-
-    .flex-item {
-      display: flex;
-      padding: 0.5em;
-      flex-direction: column;
-    }
-  }
 </style>
