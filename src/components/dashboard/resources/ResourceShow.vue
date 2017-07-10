@@ -87,7 +87,7 @@
     <div class="notes-container" v-if="!isLoading && currentResource">
       <h2 class="notes-title">
         Notas
-        <el-button type="primary" icon="plus" @click="noteDialogVisible = true"></el-button>
+        <el-button type="primary" icon="plus" @click="noteDialogVisible = true" v-if="isOwner"></el-button>
       </h2>
 
       <note-list :notes="currentResource.notes"></note-list>
@@ -95,7 +95,8 @@
       <el-dialog
         title="Crear Nota"
         :visible.sync="noteDialogVisible"
-        size="small">
+        size="small"
+        v-if="isOwner">
 
         <note-form
           :text.sync="newNote.body"
