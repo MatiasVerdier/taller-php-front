@@ -83,6 +83,27 @@
     </el-form>
 
     <div v-show="isLoading" class="loading" v-loading="isLoading" element-loading-text="Cargando"></div>
+
+    <div class="notes-container" v-if="!isLoading && currentResource">
+      <h2 class="notes-title">
+        Notas
+        <el-button type="primary" icon="plus" @click="noteDialogVisible = true"></el-button>
+      </h2>
+
+      <note-list :notes="currentResource.notes"></note-list>
+
+      <el-dialog
+        title="Crear Nota"
+        :visible.sync="noteDialogVisible"
+        size="small">
+
+        <note-form
+          :text.sync="newNote.body"
+          @cancel="noteDialogVisible = false"
+          @submit="createNote">
+        </note-form>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -100,6 +121,10 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      noteDialogVisible: false,
+      newNote: {
+        body: '',
+      },
       rules: {
         title: [
           { required: true, message: 'Debe ingresar un título' },
@@ -131,7 +156,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getResource', 'updateResource', 'deleteResource']),
+    ...mapActions(['getResource', 'updateResource', 'deleteResource', 'addNoteToResource']),
     backToList() {
       this.$router.push({ name: 'my-resources' });
     },
@@ -186,6 +211,17 @@ export default {
     onLanguageChange(value) {
       this.currentEditingResource.code_type = value;
     },
+    createNote() {
+      this.addNoteToResource({
+        id: this.currentResource.id,
+        data: this.newNote,
+      })
+      .then((response) => {
+        console.log(response);
+        this.noteDialogVisible = false;
+      })
+      .catch(error => console.log(error));
+    },
   },
 };
 </script>
@@ -225,6 +261,12 @@ export default {
   }
   .edit-button, .cancel-button {
     margin-right: 20px;
+  }
+
+  .notes-title {
+    font-size: 1.3em;
+    margin-bottom: .5em;
+    padding: 0 .5em;
   }
 }
 </style>

@@ -171,3 +171,19 @@ export const unfollowUser = async ({ commit }, payload) => {
     commit(types.FOLLOWING_CHANGE_FAILURE, error);
   }
 };
+
+export const addNoteToResource = ({ commit }, payload) => {
+  commit(types.ADD_NOTE_TO_RESOURCE);
+
+  return new Promise((resolve, reject) => {
+    api.addNoteToResource(payload.id, payload.data)
+      .then((response) => {
+        commit(types.ADD_NOTE_TO_RESOURCE_SUCCESS, response.data);
+        resolve(response);
+      })
+      .catch((error) => {
+        commit(types.ADD_NOTE_TO_RESOURCE_FAILURE, error.response);
+        reject(error);
+      });
+  });
+};

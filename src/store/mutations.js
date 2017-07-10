@@ -196,6 +196,21 @@ const mutations = {
     Vue.set(state, 'loadingFollowChange', false);
     Vue.set(state, 'error', error);
   },
+
+  [types.ADD_NOTE_TO_RESOURCE](state) {
+    Vue.set(state, 'NotesError', null);
+    Vue.set(state, 'notesLoading', true);
+  },
+
+  [types.ADD_NOTE_TO_RESOURCE_SUCCESS](state, note) {
+    state.currentResource.notes.push(note);
+    Vue.set(state, 'notesLoading', false);
+  },
+
+  [types.ADD_NOTE_TO_RESOURCE_FAILURE](state, error) {
+    Vue.set(state, 'notesLoading', false);
+    Vue.set(state, 'NotesError', error);
+  },
 };
 
 export default mutations;

@@ -49,7 +49,11 @@ const followUser = data => axios.post('/following/add', data);
 // Unfollow user
 const unfollowUser = data => axios.post('/following/remove', data);
 
+// Update Resource Matadata
 const updateResourceMetadata = (id, data) => axios.put(`/resources/metadata/${id}`, data);
+
+// Add note to resource
+const addNoteToResource = (id, data) => axios.post(`/resources/${id}/notes`, data);
 
 export default {
   login,
@@ -68,4 +72,5 @@ export default {
   getPublicUserInfo,
   followUser,
   unfollowUser,
+  addNoteToResource,
 };
