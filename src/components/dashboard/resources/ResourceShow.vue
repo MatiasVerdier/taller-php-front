@@ -21,11 +21,11 @@
 
       <div class="actions-container">
         <h1 class="title">
-          <visibility-indicator :status="currentResource.visibility" v-show="!editing"></visibility-indicator>
+          <visibility-indicator :status="currentResource.visibility" v-if="!editing"></visibility-indicator>
           <span v-show="!editing">{{ currentResource.title }}</span>
 
-          <el-form-item prop="title">
-            <el-input placeholder="Título" v-show="editing" v-model="currentEditingResource.title">
+          <el-form-item prop="title" v-if="editing">
+            <el-input placeholder="Título" v-model="currentEditingResource.title">
               <el-select v-model="currentEditingResource.visibility" slot="prepend" placeholder="Visibilidad">
                 <el-option label="Público" value="PUBLIC"></el-option>
                 <el-option label="Compartido" value="SHARED"></el-option>
