@@ -4,7 +4,7 @@
       <h2 class="empty-notes">No hay Notas para mostrar</h2>
     </el-col>
     <el-col :xs="24" :sm="12" v-for="note in notes" class="flex-item">
-      <note-item :note="note"></note-item>
+      <note-item :note="note" :key="note.id"></note-item>
     </el-col>
   </el-row>
 </template>
@@ -14,7 +14,12 @@ import NoteItem from './NoteItem';
 
 export default {
   props: {
-    notes: { type: Array, default: [] },
+    notes: {
+      type: Array,
+      default: function () { // eslint-disable-line
+        return [];
+      },
+    },
   },
   components: {
     NoteItem,
