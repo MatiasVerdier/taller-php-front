@@ -87,7 +87,7 @@
     <div class="notes-container" v-if="!isLoading && currentResource">
       <h2 class="notes-title">
         Notas
-        <el-button type="primary" icon="plus" @click="noteDialogVisible = true" v-if="isOwner"></el-button>
+        <el-button type="primary" icon="plus" @click="noteDialogVisible = true" v-if="isOwner && !editing"></el-button>
       </h2>
 
       <note-list :notes="currentResource.notes"></note-list>
@@ -217,8 +217,7 @@ export default {
         id: this.currentResource.id,
         data: this.newNote,
       })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.noteDialogVisible = false;
       })
       .catch(error => console.log(error));
