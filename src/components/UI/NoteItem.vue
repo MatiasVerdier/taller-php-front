@@ -19,7 +19,7 @@ export default {
       return marked(this.note.body, { sanitize: true });
     },
     isOwner() {
-      return this.currentUser && this.currentUser.id === this.note.id;
+      return this.currentUser && this.currentUser.id === this.note.user_id;
     },
   },
   methods: {
