@@ -1,39 +1,46 @@
 <template lang="html">
-  <el-row class="resource-create-buttons">
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <h1 class="create-title">Crear Recursos</h1>
+      </el-col>
+    </el-row>
 
-    <el-col :span="8">
-      <router-link to="/dashboard/create/link">
-        <el-card class="resource-type-card link">
-          <h2>
-            <i class="fa fa-globe"></i>
-            Sitio Web
-          </h2>
-        </el-card>
-      </router-link>
-    </el-col>
+    <el-row class="resource-create-buttons">
+      <el-col :span="8">
+        <router-link to="/dashboard/create/link">
+          <el-card class="resource-type-card link">
+            <h2>
+              <i class="fa fa-globe"></i>
+              Sitio Web
+            </h2>
+          </el-card>
+        </router-link>
+      </el-col>
 
-    <el-col :span="8">
-      <router-link to="/dashboard/create/markdown">
-        <el-card class="resource-type-card markdown">
-          <h2>
-            <i class="fa fa-file-text"></i>
-            Markdown
-          </h2>
-        </el-card>
-      </router-link>
-    </el-col>
+      <el-col :span="8">
+        <router-link to="/dashboard/create/markdown">
+          <el-card class="resource-type-card markdown">
+            <h2>
+              <i class="fa fa-file-text"></i>
+              Markdown
+            </h2>
+          </el-card>
+        </router-link>
+      </el-col>
 
-    <el-col :span="8">
-      <router-link to="/dashboard/create/code">
-        <el-card class="resource-type-card code">
-          <h2>
-            <i class="fa fa-code"></i>
-            Snippet
-          </h2>
-        </el-card>
-      </router-link>
-    </el-col>
-  </el-row>
+      <el-col :span="8">
+        <router-link to="/dashboard/create/code">
+          <el-card class="resource-type-card code">
+            <h2>
+              <i class="fa fa-code"></i>
+              Snippet
+            </h2>
+          </el-card>
+        </router-link>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -42,6 +49,11 @@ export default {
 </script>
 
 <style lang="scss">
+.create-title {
+  font-size: 1.3em;
+  text-align: center;
+  margin-top: 10px;
+}
 .resource-create-buttons {
   padding: 20px;
   display: flex;
