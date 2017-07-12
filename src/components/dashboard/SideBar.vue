@@ -9,6 +9,16 @@
       Perfil
     </el-menu-item>
 
+    <div class="el-menu-item">
+      <el-input
+        placeholder="Buscar recurso"
+        :icon="searchIcon"
+        v-model="searchFilter"
+        :on-icon-click="handleIconClick"
+        @change="onFilterChange">
+      </el-input>
+    </div>
+
     <el-menu-item index="logout" class="logout-menu">
       <i class="fa fa-sign-out" style="margin-right:10px;"></i>
       Salir
@@ -17,11 +27,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'updateSearchFilter']),
     onMenuSelect(name) {
       if (name === 'logout') {
         this.logout();
@@ -30,10 +40,22 @@ export default {
         this.$router.push({ name });
       }
     },
+    handleIconClick() {
+      if (this.searchIcon === 'close') {
+        this.searchFilter = '';
+      }
+    },
+    onFilterChange(value) {
+      this.updateSearchFilter(value);
+    },
   },
   computed: {
+    ...mapGetters(['searchFilter']),
     activeRoute() {
       return this.$route.name;
+    },
+    searchIcon() {
+      return this.searchFilter === '' ? 'search' : 'close';
     },
   },
 };
