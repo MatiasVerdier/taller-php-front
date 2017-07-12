@@ -219,6 +219,7 @@ export default {
       })
       .then(() => {
         this.noteDialogVisible = false;
+        this.newNote.body = '';
       })
       .catch(error => console.log(error));
     },

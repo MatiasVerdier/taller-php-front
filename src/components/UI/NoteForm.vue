@@ -45,6 +45,7 @@ export default {
     },
     onSubmit() {
       this.$emit('submit');
+      this.$refs.noteForm.resetFields();
     },
     onCancel() {
       this.$refs.noteForm.resetFields();
