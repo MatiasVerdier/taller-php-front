@@ -1,10 +1,11 @@
 <template lang="html">
   <el-menu :default-active="activeRoute" class="SideBar" @select="onMenuSelect">
-    <el-menu-item index="my-resources">
+    <el-menu-item index="my-resources" v-if="currentUser">
       <i class="el-icon-menu"></i>
       Dashboard
     </el-menu-item>
-    <el-menu-item index="profile">
+
+    <el-menu-item index="profile" v-if="currentUser">
       <i class="fa fa-user" style="margin-right:10px;"></i>
       Perfil
     </el-menu-item>
@@ -19,7 +20,7 @@
       </el-input>
     </div>
 
-    <el-menu-item index="logout" class="logout-menu">
+    <el-menu-item index="logout" class="logout-menu" v-if="currentUser">
       <i class="fa fa-sign-out" style="margin-right:10px;"></i>
       Salir
     </el-menu-item>
@@ -50,7 +51,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['searchFilter']),
+    ...mapGetters(['currentUser', 'searchFilter']),
     activeRoute() {
       return this.$route.name;
     },
