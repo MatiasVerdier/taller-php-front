@@ -1,5 +1,5 @@
 <template lang="html">
-  <el-button :plain="true" v-if="currentUser.id !== user.id" :type="followButtonType" @click="changeFollowing">
+  <el-button :plain="true" v-if="currentUser && currentUser.id !== user.id" :type="followButtonType" @click="changeFollowing">
     {{ followButtonText }}
   </el-button>
 </template>
