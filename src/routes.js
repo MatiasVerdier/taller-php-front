@@ -20,21 +20,24 @@ const routes = [
     },
     children: [
       {
-        path: 'resources', name: 'my-resources', component: MyResources,
+        path: 'resources', name: 'my-resources', component: MyResources, meta: { requireAuth: true },
       },
       {
-        path: 'create/:type', component: ResourceCreate,
+        path: 'create/:type', component: ResourceCreate, meta: { requireAuth: true },
       },
       {
-        path: 'show/:id', name: 'show', component: ResourceShow, props: true,
+        path: 'show/:id', name: 'show', component: ResourceShow, props: true, meta: { requireAuth: true },
       },
       {
-        path: 'edit/:id', name: 'edit', component: ResourceShow, props: true,
+        path: 'edit/:id', name: 'edit', component: ResourceShow, props: true, meta: { requireAuth: true },
       },
       {
         path: '/profile',
         name: 'profile',
         component: Profile,
+        meta: {
+          requireAuth: true,
+        },
       },
       { path: '/explore', name: 'explore', component: Explore },
     ],
