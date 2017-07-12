@@ -9,7 +9,7 @@ import router from './router';
 import './utils/filters';
 
 // Global components
-import Gravatar from './components/Gravatar';
+import Gravatar from './components/UI/Gravatar';
 import MarkdownEditor from './components/UI/MarkdownEditor';
 import CodeEditor from './components/UI/CodeEditor';
 import ResourceList from './components/UI/ResourceList';
