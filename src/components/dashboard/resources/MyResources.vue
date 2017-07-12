@@ -22,15 +22,15 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   mounted() {
+    if (this.currentUser) {
+      this.getMyResources(this.currentUser.id);
+    }
+
     this.$watch('currentUser', (user) => {
       if (user) {
         this.getMyResources(user.id);
       }
     });
-
-    if (this.currentUser) {
-      this.getMyResources(this.currentUser.id);
-    }
   },
   methods: {
     ...mapActions(['getMyResources']),
