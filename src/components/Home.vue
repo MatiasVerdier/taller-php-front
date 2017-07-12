@@ -24,7 +24,7 @@
       <el-row class="home-row">
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="https://placehold.it/500x300" class="image">
+            <img src="/static/links.jpg" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
@@ -32,7 +32,7 @@
 
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="https://placehold.it/500x300" class="image">
+            <img src="/static/markdown.png" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
@@ -40,7 +40,7 @@
 
         <el-col :xs="20" :sm="20" :md="7">
           <el-card :body-style="{ padding: '0px' }" class="home-card">
-            <img src="https://placehold.it/500x300" class="image">
+            <img src="/static/snippets.jpg" class="image">
             <div class="card-overlay">
             </div>
           </el-card>
