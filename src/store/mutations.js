@@ -203,6 +203,9 @@ const mutations = {
   },
 
   [types.ADD_NOTE_TO_RESOURCE_SUCCESS](state, note) {
+    if (!state.currentResource.notes) {
+      Vue.set(state.currentResource, 'notes', []);
+    }
     state.currentResource.notes.push(note);
     Vue.set(state, 'notesLoading', false);
   },
