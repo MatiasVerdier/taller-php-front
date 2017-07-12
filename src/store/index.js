@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     resources: [],
     myResources: [],
     lookingUserInfo: {},
+    searchFilter: '',
   },
   actions,
   getters,

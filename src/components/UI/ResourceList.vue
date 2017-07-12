@@ -11,7 +11,8 @@
     </el-row>
 
     <el-row class="flex-container" v-if="!isLoading">
-      <el-col :xs="24" :sm="12" :lg="6" v-for="resource in resources" class="flex-item" :key="resource.id">
+      <el-col :xs="24" :sm="12" :lg="6" v-for="resource in resources" class="flex-item" :key="resource.id"
+        v-show="filteredResources.indexOf(resource) !== -1">
         <resource-item :resource="resource"></resource-item>
       </el-col>
     </el-row>
@@ -33,7 +34,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading', 'searchFilter']),
+    filteredResources() {
+      return this.resources.filter((resource) => {
+        const regex = new RegExp(this.searchFilter, 'i');
+        return resource.title.match(regex);
+      });
+    },
   },
   components: {
     ResourceItem,

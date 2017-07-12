@@ -227,6 +227,10 @@ const mutations = {
     Vue.set(state, 'notesLoading', false);
     Vue.set(state, 'NotesError', error);
   },
+
+  [types.UPDATE_RESOURCE_FILTER](state, payload) {
+    Vue.set(state, 'searchFilter', payload);
+  },
 };
 
 export default mutations;

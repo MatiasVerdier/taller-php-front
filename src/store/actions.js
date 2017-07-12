@@ -203,3 +203,7 @@ export const removeNoteFromResource = ({ commit }, payload) => {
       });
   });
 };
+
+export const updateSearchFilter = ({ commit }, payload) => {
+  commit(types.UPDATE_RESOURCE_FILTER, payload);
+};
