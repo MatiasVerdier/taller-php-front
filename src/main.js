@@ -21,6 +21,7 @@ import ErrorMessage from './components/UI/ErrorMessage';
 import VisibilityIndicator from './components/UI/VisibilityIndicator';
 import NoteList from './components/UI/NoteList';
 import NoteForm from './components/UI/NoteForm';
+import UserList from './components/UI/UserList';
 
 Vue.component('gravatar', Gravatar);
 Vue.component('markdown-editor', MarkdownEditor);
@@ -34,6 +35,7 @@ Vue.component('error-message', ErrorMessage);
 Vue.component('visibility-indicator', VisibilityIndicator);
 Vue.component('note-list', NoteList);
 Vue.component('note-form', NoteForm);
+Vue.component('user-list', UserList);
 
 // Plugins
 Vue.use(ElementUI, { locale });
