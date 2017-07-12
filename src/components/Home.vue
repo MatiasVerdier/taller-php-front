@@ -26,6 +26,7 @@
           <el-card :body-style="{ padding: '0px' }" class="home-card">
             <img src="/static/links.jpg" class="image">
             <div class="card-overlay">
+              <h2>Sitios Web</h2>
             </div>
           </el-card>
         </el-col>
@@ -34,6 +35,7 @@
           <el-card :body-style="{ padding: '0px' }" class="home-card">
             <img src="/static/markdown.png" class="image">
             <div class="card-overlay">
+              <h2>Documentos Markdown</h2>
             </div>
           </el-card>
         </el-col>
@@ -42,6 +44,7 @@
           <el-card :body-style="{ padding: '0px' }" class="home-card">
             <img src="/static/snippets.jpg" class="image">
             <div class="card-overlay">
+              <h2>Snippets de Código</h2>
             </div>
           </el-card>
         </el-col>
@@ -127,5 +130,37 @@ export default {
 
 .home-card {
   margin-bottom: 20px;
+  position: relative;
+
+  .card-overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(20, 20, 20, 0.6);
+
+      h2 {
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      opacity: 0;
+      text-align: center;
+      font-size: 2em;
+      color: white;
+      text-transform: uppercase;
+      transition: all .3s ease-in-out;
+    }
+  }
 }
 </style>
