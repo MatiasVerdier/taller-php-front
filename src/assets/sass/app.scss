@@ -32,3 +32,9 @@ a {
     flex-direction: column;
   }
 }
+
+.el-message-box__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
