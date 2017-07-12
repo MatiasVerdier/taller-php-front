@@ -9,9 +9,7 @@
         <h3>{{ user.username }}</h3>
 
         <template v-if="lookingUser">
-          <el-button :plain="true" v-if="currentUser.id !== user.id" :type="followButtonType" @click="changeFollowing">
-            {{ followButtonText }}
-          </el-button>
+          <follow-status-button :user="user"></follow-status-button>
 
           <el-row class="extra-info">
             <el-col :span="8" class="info-block">
@@ -52,16 +50,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentUser', 'currentUserFollowing', 'lookingUser']),
-    isFollowing() {
-      return this.currentUserFollowing.indexOf(this.user.id) !== -1;
-    },
-    followButtonText() {
-      return this.isFollowing ? 'Dejar de Seguir' : 'Seguir';
-    },
-    followButtonType() {
-      return this.isFollowing ? 'danger' : 'success';
-    },
+    ...mapGetters(['currentUserFollowing', 'lookingUser']),
     followers() {
       return this.lookingUser.followersCount;
     },
@@ -70,16 +59,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getPublicUserInfo', 'followUser', 'unfollowUser']),
+    ...mapActions(['getPublicUserInfo']),
     getUserInfo() {
       this.getPublicUserInfo(this.user.id);
-    },
-    changeFollowing() {
-      if (this.isFollowing) {
-        this.unfollowUser({ user_id: this.user.id });
-      } else {
-        this.followUser({ user_id: this.user.id });
-      }
     },
   },
 };
