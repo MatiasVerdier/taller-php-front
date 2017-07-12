@@ -9,12 +9,12 @@
       <el-col :xs="24" :sm="12" :md="8" v-for="user in users" class="flex-item" :key="user.id">
         <el-card>
           <el-row>
-            <el-col :span="18">
-              <gravatar :email="user.email"></gravatar>
+            <el-col :span="24" style="text-align: center; margin-bottom: 20px;">
+              <gravatar :email="user.email" style="display: block;"></gravatar>
               <span>{{ user.username }}</span>
             </el-col>
 
-            <el-col :span="6">
+            <el-col :span="24" style="text-align: center;">
               <follow-status-button :user="user"></follow-status-button>
             </el-col>
           </el-row>
