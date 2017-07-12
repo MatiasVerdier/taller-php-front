@@ -8,14 +8,27 @@
       <i class="fa fa-user" style="margin-right:10px;"></i>
       Perfil
     </el-menu-item>
+
+    <el-menu-item index="logout" class="logout-menu">
+      <i class="fa fa-sign-out" style="margin-right:10px;"></i>
+      Salir
+    </el-menu-item>
   </el-menu>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   methods: {
+    ...mapActions(['logout']),
     onMenuSelect(name) {
-      this.$router.push({ name });
+      if (name === 'logout') {
+        this.logout();
+        this.$router.push({ name: 'login' });
+      } else {
+        this.$router.push({ name });
+      }
     },
   },
   computed: {
@@ -36,6 +49,12 @@ export default {
     position: fixed;
     width: 200px;
     border-right: 2px solid #e0e0e0;
+  }
+
+  .logout-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 }
 </style>

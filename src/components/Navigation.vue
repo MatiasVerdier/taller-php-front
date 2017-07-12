@@ -13,12 +13,10 @@
 
       <div class="right-menu">
         <template v-if="isAuthenticated">
-          <div v-if="currentUser" class="el-menu-item user-menu" @click="onMenuLogout">
+          <el-menu-item v-if="currentUser" index="profile" class="el-menu-item user-menu">
             <gravatar :email="currentUser.email"></gravatar>
             <span class="user-name">{{ currentUser.username }}</span>
-
-            <i class="fa fa-sign-out"></i>
-          </div>
+          </el-menu-item>
         </template>
 
         <el-menu-item v-else index="login">
@@ -30,25 +28,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(['logout']),
     onMenuSelect(name) {
       this.$router.push({ name });
-    },
-    dropdownSelect(command) {
-      if (command === 'logout') {
-        this.logout();
-        this.$router.push({ name: 'login' });
-      } else {
-        this.$router.push({ name: command });
-      }
-    },
-    onMenuLogout() {
-      this.logout();
-      this.$router.push({ name: 'login' });
     },
   },
   computed: {
