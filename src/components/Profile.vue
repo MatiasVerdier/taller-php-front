@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="profile">
-
+    <resource-create-buttons></resource-create-buttons>
   </div>
 </template>
 

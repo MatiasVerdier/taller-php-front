@@ -187,3 +187,19 @@ export const addNoteToResource = ({ commit }, payload) => {
       });
   });
 };
+
+export const removeNoteFromResource = ({ commit }, payload) => {
+  commit(types.REMOVE_NOTE_FROM_RESOURCE);
+
+  return new Promise((resolve, reject) => {
+    api.removeNoteFromResource(payload)
+      .then((response) => {
+        commit(types.REMOVE_NOTE_FROM_RESOURCE_SUCCESS, payload);
+        resolve(response);
+      })
+      .catch((error) => {
+        commit(types.REMOVE_NOTE_FROM_RESOURCE_FAILURE, error.response);
+        reject(error);
+      });
+  });
+};

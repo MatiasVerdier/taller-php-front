@@ -55,6 +55,9 @@ const updateResourceMetadata = (id, data) => axios.put(`/resources/metadata/${id
 // Add note to resource
 const addNoteToResource = (id, data) => axios.post(`/resources/${id}/notes`, data);
 
+// Remove note from resource
+const removeNoteFromResource = data => axios.delete(`/resources/${data.resource_id}/notes/${data.id}`);
+
 export default {
   login,
   register,
@@ -73,4 +76,5 @@ export default {
   followUser,
   unfollowUser,
   addNoteToResource,
+  removeNoteFromResource,
 };

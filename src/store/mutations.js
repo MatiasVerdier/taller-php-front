@@ -211,6 +211,22 @@ const mutations = {
     Vue.set(state, 'notesLoading', false);
     Vue.set(state, 'NotesError', error);
   },
+
+  [types.REMOVE_NOTE_FROM_RESOURCE](state) {
+    Vue.set(state, 'NotesError', null);
+    Vue.set(state, 'notesLoading', true);
+  },
+
+  [types.REMOVE_NOTE_FROM_RESOURCE_SUCCESS](state, payload) {
+    Vue.set(state.currentResource, 'notes', state.currentResource.notes
+      .filter(item => item.id !== payload.id));
+    Vue.set(state, 'notesLoading', false);
+  },
+
+  [types.REMOVE_NOTE_FROM_RESOURCE_FAILURE](state, error) {
+    Vue.set(state, 'notesLoading', false);
+    Vue.set(state, 'NotesError', error);
+  },
 };
 
 export default mutations;
