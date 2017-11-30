@@ -34,7 +34,7 @@ export default {
 <style src="./assets/sass/app.scss" lang="scss"></style>
 <style scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
-@import "https://unpkg.com/element-ui/lib/theme-default/index.css";
+@import "https://unpkg.com/element-ui/lib/theme-chalk/index.css";
 
 #main {
   padding-top: 60px;
